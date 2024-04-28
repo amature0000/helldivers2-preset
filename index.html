@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이콘 목록</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="html2canvas.js"></script>
+</head>
+
+<body>
+    <label for="title-input">제목 변경:</label>
+    <input type="text" id="title-input">
+    <button id="change-title-button">변경</button>
+    <div id="targetImg">
+        <h1 id="icon-list-title">프리셋</h1>
+        <div class="empty-icon" data-target="icon1">
+            <img src="assets/default.png">
+        </div>
+        <div class="empty-icon" data-target="icon2">
+            <img src="assets/default.png">
+        </div>
+        <div class="empty-icon" data-target="icon3">
+            <img src="assets/default.png">
+        </div>
+        <div class="empty-icon" data-target="icon4">
+            <img src="assets/default.png">
+        </div>
+    </div>
+    <hr>
+    <div>
+        <button id="download-button" class="button" onclick="down()">이미지로 저장</button>
+    </div>
+
+    <div id="group-container">
+        <div class="group" data-group="group1">
+            <h2 class="toggle"><button class="button list">궤도</button></h2>
+            <div class="icons">
+                <img class="img" src="assets/Bridge/Orbital Precision Strike.svg" alt="">
+                <img class="img" src="assets/Orbital Cannons/Orbital Walking Barrage.svg" alt="">
+                <img class="img" src="assets/Orbital Cannons/Orbital 120MM HE Barrage.svg" alt="">
+                <img class="img" src="assets/Orbital Cannons/Orbital 380MM HE Barrage.svg" alt="">
+                <img class="img" src="assets/Orbital Cannons/Orbital Airburst Strike.svg" alt="">
+                <img class="img" src="assets/Orbital Cannons/Orbital Gatling Barrage.svg" alt="">
+                <img class="img" src="assets/Orbital Cannons/Orbital Laser.svg" alt="">
+                <img class="img" src="assets/Orbital Cannons/Orbital Railcannon Strike.svg" alt="">
+                <img class="img" src="assets/Bridge/Orbital EMS Strike.svg" alt="">
+                <img class="img" src="assets/Bridge/Orbital Gas Strike.svg" alt="">
+                <img class="img" src="assets/Bridge/Orbital Smoke Strike.svg" alt="">
+            </div>
+        </div>
+
+        <div class="group" data-group="group4">
+            <h2 class="toggle"><button class="button list">이글</button></h2>
+            <div class="icons">
+                <img class="img" src="assets/Hangar/Eagle Strafing Run.svg" alt="">
+                <img class="img" src="assets/Hangar/Eagle 500KG Bomb.svg" alt="">
+                <img class="img" src="assets/Hangar/Eagle Airstrike.svg" alt="">
+                <img class="img" src="assets/Hangar/Eagle Cluster Bomb.svg" alt="">
+                <img class="img" src="assets/Hangar/Eagle 110MM Rocket Pods.svg" alt="">
+                <img class="img" src="assets/Hangar/Eagle Napalm Airstrike.svg" alt="">
+                <img class="img" src="assets/Hangar/Eagle Smoke Strike.svg" alt="">
+            </div>
+        </div>
+
+        <div class="group" data-group="group2">
+            <h2 class="toggle"><button class="button list">설치형</button></h2>
+            <div class="icons">
+                <img class="img" src="assets/Bridge/HMG Emplacement.svg" alt="">
+                <img class="img" src="assets/Bridge/Tesla Tower.svg" alt="">
+                <img class="img" src="assets/Engineering Bay/Anti-Personnel Minefield.svg" alt="">
+                <img class="img" src="assets/Engineering Bay/Incendiary Mines.svg" alt="">
+                <img class="img" src="assets/Bridge/Shield Generator Relay.svg" alt="">
+                <img class="img" src="assets/Robotics Workshop/Autocannon Sentry.svg" alt="">
+                <img class="img" src="assets/Robotics Workshop/EMS Mortar Sentry.svg" alt="">
+                <img class="img" src="assets/Robotics Workshop/Gatling Sentry.svg" alt="">
+                <img class="img" src="assets/Robotics Workshop/Machine Gun Sentry.svg" alt="">
+                <img class="img" src="assets/Robotics Workshop/Mortar Sentry.svg" alt="">
+                <img class="img" src="assets/Robotics Workshop/Rocket Sentry.svg" alt="">
+            </div>
+        </div>
+
+        <div class="group" data-group="group3">
+            <h2 class="toggle"><button class="button list">지원형</button></h2>
+            <div class="icons">
+                <img class="img" src="assets/Robotics Workshop/Patriot Exosuit.svg" alt="">
+                <img class="img" src="assets/Patriotic Administration Center/Anti-Materiel Rifle.svg" alt="">
+                <img class="img" src="assets/Patriotic Administration Center/Autocannon.svg" alt="">
+                <img class="img" src="assets/Patriotic Administration Center/Expendable Anti-Tank.svg" alt="">
+                <img class="img" src="assets/Engineering Bay/Quasar Cannon.svg" alt="">
+                <img class="img" src="assets/Patriotic Administration Center/Recoilless Rifle.svg" alt="">
+                <img class="img" src="assets/Patriotic Administration Center/Spear.svg" alt="">
+                <img class="img" src="assets/Patriotic Administration Center/Stalwart.svg" alt="">
+                <img class="img" src="assets/Patriotic Administration Center/Machine Gun.svg" alt="">
+                <img class="img" src="assets/Engineering Bay/Laser Cannon.svg" alt="">
+                <img class="img" src="assets/Patriotic Administration Center/Heavy Machine Gun.svg" alt="">
+                <img class="img" src="assets/Patriotic Administration Center/Railgun.svg" alt="">
+                <img class="img" src="assets/Patriotic Administration Center/Flamethrower.svg" alt="">
+                <img class="img" src="assets/Engineering Bay/Arc Thrower.svg" alt="">
+                <img class="img" src="assets/Engineering Bay/Grenade Launcher.svg" alt="">
+                <img class="img" src="assets/Engineering Bay/Ballistic Shield Backpack.svg" alt="">
+                <img class="img" src="assets/Robotics Workshop/Guard Dog.svg" alt="">
+                <img class="img" src="assets/Engineering Bay/Guard Dog Rover.svg" alt="">
+                <img class="img" src="assets/Engineering Bay/Shield Generator Pack.svg" alt="">
+                <img class="img" src="assets/Engineering Bay/Supply Pack.svg" alt="">
+                <img class="img" src="assets/Hangar/Jump Pack.svg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div id="icon-list">
+        <!-- display field -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
