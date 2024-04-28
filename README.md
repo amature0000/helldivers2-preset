@@ -5,4 +5,4 @@ In this project, I use assets from the following project :
 Also you can download icons with :
 - [Helldivers-2-Stratagems-icons-svg.zip](https://github.com/nvigneux/Helldivers-2-Stratagems-icons-svg/archive/refs/heads/master.zip) 
 
-this files are published on the github page
+# this project is
