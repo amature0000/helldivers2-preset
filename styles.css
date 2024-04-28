@@ -1,5 +1,17 @@
+h1 {
+    margin: 5px;
+}
+
 .group {
     margin-bottom: 20px;
+    display: inline-block;
+    margin-right: 5px;
+    white-space: nowrap;
+}
+
+#group-container {
+    white-space: nowrap;
+    margin-top: 15px;
 }
 
 .icons {
@@ -7,7 +19,7 @@
 }
 
 #icon-list {
-    width:50%;
+    width: 50%;
 }
 
 .toggle {
@@ -15,19 +27,20 @@
 }
 
 .img {
-    background-color:black;
-    cursor: pointer;
+    background-color: black;
     height: 100px;
     width: 100px;
 }
 
 #targetImg {
-    width: 490px;
+    width: 475px;
+    height: 165px;
 }
 
-.group {
-    display: inline-block;
-    margin-right: 20px;
+.header {
+    height: 50px;
+    margin: 0;
+    padding: 0;
 }
 
 .empty-icon {
@@ -81,4 +94,49 @@
 
 .button.list:hover {
     background-color: #555555;
+}
+
+figure {
+    margin: 0;
+    width: 100px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+figcaption {
+    text-align: center;
+}
+
+.white-background {
+    background-color: white;
+}
+
+input[type="text"] {
+    margin-top: 25px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 210px;
+    font-size: 16px;
+}
+
+#bump {
+    margin: 0;
+    padding: 0;
+}
+
+.no-margin-vertical {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.no-padding-vertical {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+@media screen and (max-width: 767px) {
+    #icon-list {
+        width: 100%;
+    }
 }

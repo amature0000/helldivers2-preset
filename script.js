@@ -1,10 +1,10 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const toggles = document.querySelectorAll('.toggle');
-    const emptyIcons = document.querySelectorAll('.empty-icon');
+let activeIconIndex = null;
+document.addEventListener("DOMContentLoaded", function () {
+    // 이미지 펼치기
     const iconList = document.getElementById('icon-list');
-
-    toggles.forEach(function(toggle) {
-        toggle.addEventListener('click', function() {
+    const toggles = document.querySelectorAll('.toggle');
+    toggles.forEach(function (toggle) {
+        toggle.addEventListener('click', function () {
             const groupName = this.parentElement.dataset.group;
             const icons = this.nextElementSibling.innerHTML;
             iconList.innerHTML = (iconList.dataset.activeGroup === groupName) ? '' : icons;
@@ -12,54 +12,84 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    emptyIcons.forEach(function(icon, index) {
-        icon.addEventListener('click', function() {
-            emptyIcons.forEach(function(icon) {
-                icon.classList.remove('active');
-            });
-            this.classList.add('active');
-            activeIconIndex = index;
+    // 타겟 이미지 active 토글
+    const emptyIcons = document.querySelectorAll('.empty-icon');
+    emptyIcons.forEach(function (icon, index) {
+        icon.addEventListener('click', function () {
+            if (this.classList.contains('active')) {
+                this.classList.remove('active');
+                activeIconIndex = null;
+            } else {
+                emptyIcons.forEach(function (icon) {
+                    icon.classList.remove('active');
+                });
+                this.classList.add('active');
+                activeIconIndex = index;
+            }
         });
     });
 
-    iconList.addEventListener('click', function(event) {
+    // 이미지 링크하기
+    iconList.addEventListener('click', function (event) {
         if (activeIconIndex !== null) {
             const targetIcon = event.target;
             if (targetIcon.tagName === 'IMG') {
                 const clonedIcon = targetIcon.cloneNode(true);
                 emptyIcons[activeIconIndex].innerHTML = '';
                 emptyIcons[activeIconIndex].appendChild(clonedIcon);
+                nextactive();
             }
         }
     });
 
+    // 제목 변경
     const titleInput = document.getElementById('title-input');
-    const changeTitleButton = document.getElementById('change-title-button');
     const iconListTitle = document.getElementById('icon-list-title');
-    
-    changeTitleButton.addEventListener('click', function() {
-        const newTitle = titleInput.value.trim();
-        if (newTitle !== '') {
-            iconListTitle.textContent = newTitle;
-            titleInput.value = '';
-        } else {
-            alert('제목을 입력하세요.');
-        }
+    titleInput.addEventListener('input', function () {
+        iconListTitle.textContent = titleInput.value;
     });
+
+    // 제목 숨기기
+    const checkbox = document.getElementById("checkbox");
+    const title = document.getElementById("icon-list-title");
+    const targetImg = document.getElementById("targetImg");
+    const bump = document.getElementById("bump");
+    
+    checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          title.style.display = 'none';
+          targetImg.style.height = '115px';
+          bump.style.height = "50px";
+        } else {
+          title.style.display = 'block';
+          targetImg.style.height = '165px';
+          bump.style.height = "0";
+        }
+      });
 });
 
-function down() {
-    const div = document.getElementById("targetImg");
-    html2canvas(div).then(function(canvas) {
-        var myImage = canvas.toDataURL();
-        downloadURI(myImage, "download.png");
+// 이미지로 다운로드
+function down(background) {
+    if (background) {
+        document.getElementById('targetImg').setAttribute("class", "white-background");
+    }
+    const emptyIcons = document.querySelectorAll('.empty-icon');
+    emptyIcons.forEach(function (icon) {
+        icon.classList.remove('active');
     });
+    domtoimage.toBlob(document.getElementById('targetImg'))
+        .then(function (blob) {
+            window.saveAs(blob, 'download.png');
+            document.getElementById('targetImg').removeAttribute("class");
+        });
 }
 
-function downloadURI(uri, name) {
-    var link = document.createElement("a")
-	link.download = name;
-	link.href = uri;
-	document.body.appendChild(link);
-	link.click();
+function nextactive() {
+    const emptyIcons = document.querySelectorAll('.empty-icon');
+    emptyIcons.forEach(function (icon) {
+        icon.classList.remove('active');
+    });
+    activeIconIndex++;
+    if(activeIconIndex > 3) activeIconIndex = null;
+    emptyIcons[activeIconIndex].classList.add('active');
 }
