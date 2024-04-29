@@ -53,6 +53,10 @@ function down(background) {
     if (background) {
         document.getElementById('targetImg').setAttribute("class", "white-background");
     }
+    const emptyIcons = document.querySelectorAll('.empty-icon');
+    emptyIcons.forEach(function (icon) {
+        icon.classList.remove('active');
+    });
     domtoimage.toBlob(document.getElementById('targetImg'))
         .then(function (blob) {
             window.saveAs(blob, 'download.png');
