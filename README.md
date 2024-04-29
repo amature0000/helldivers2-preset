@@ -8,4 +8,4 @@ Also you can download icons with :
 ## this files are published on the github pages : 
 - [helldivers-preset](https://amature0000.github.io/helldivers2-preset/)
 
-This project is a simple implementation for single purpose. You are free to use for your own project.
+This project is a simple implementation for a single purpose. You are free to use this project for your own projects.
