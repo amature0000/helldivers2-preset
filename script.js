@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         icon.addEventListener('click', function () {
             if (this.classList.contains('active')) {
                 this.classList.remove('active');
+                activeIconIndex = null;
             } else {
                 emptyIcons.forEach(function (icon) {
                     icon.classList.remove('active');
@@ -31,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
     iconList.addEventListener('click', function (event) {
         if (activeIconIndex !== null) {
             const targetIcon = event.target;
-            console.log(targetIcon);
             if (targetIcon.tagName === 'IMG') {
                 const clonedIcon = targetIcon.cloneNode(true);
                 emptyIcons[activeIconIndex].innerHTML = '';
@@ -49,9 +49,13 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // 이미지로 다운로드
-function down() {
+function down(background) {
+    if (background) {
+        document.getElementById('targetImg').setAttribute("class", "white-background");
+    }
     domtoimage.toBlob(document.getElementById('targetImg'))
         .then(function (blob) {
             window.saveAs(blob, 'download.png');
+            document.getElementById('targetImg').removeAttribute("class");
         });
 }
