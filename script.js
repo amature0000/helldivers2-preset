@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const emptyIcons = document.querySelectorAll('.empty-icon');
     const iconList = document.getElementById('icon-list');
 
+    // 이미지 펼치기
     toggles.forEach(function(toggle) {
         toggle.addEventListener('click', function() {
             const groupName = this.parentElement.dataset.group;
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    // 이미지 링크하기
     iconList.addEventListener('click', function(event) {
         if (activeIconIndex !== null) {
             const targetIcon = event.target;
@@ -33,21 +35,15 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    // 제목 변경
     const titleInput = document.getElementById('title-input');
-    const changeTitleButton = document.getElementById('change-title-button');
     const iconListTitle = document.getElementById('icon-list-title');
-    
-    changeTitleButton.addEventListener('click', function() {
-        const newTitle = titleInput.value.trim();
-        if (newTitle !== '') {
-            iconListTitle.textContent = newTitle;
-            titleInput.value = '';
-        } else {
-            alert('제목을 입력하세요.');
-        }
+    titleInput.addEventListener('input', function() {
+        iconListTitle.textContent = titleInput.value;
     });
 });
 
+// 이미지로 다운로드
 function down() {
     domtoimage.toBlob(document.getElementById('targetImg'))
     .then(function (blob) {
