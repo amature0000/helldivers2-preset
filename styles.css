@@ -16,7 +16,6 @@
 
 .img {
     background-color:black;
-    cursor: pointer;
     height: 100px;
     width: 100px;
 }
@@ -86,4 +85,15 @@
 
 .button.list:hover {
     background-color: #555555;
+}
+
+figure {
+    margin:0;
+    width: 100px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+figcaption {
+    text-align: center;
 }
