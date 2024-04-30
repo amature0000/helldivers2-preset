@@ -1,11 +1,15 @@
 # Helldivers 2 stratagem preset
-In this project, I use assets from the following project :
+## In this project, I use assets from the following project :
 - [nvigneux/Helldivers-2-Stratagems-icons-svg](https://github.com/nvigneux/Helldivers-2-Stratagems-icons-svg)
+    - download :
+        [Helldivers-2-Stratagems-icons-svg.zip](https://github.com/nvigneux/Helldivers-2-Stratagems-icons-svg/archive/refs/heads/master.zip)
 
-Also you can download icons with :
-- [Helldivers-2-Stratagems-icons-svg.zip](https://github.com/nvigneux/Helldivers-2-Stratagems-icons-svg/archive/refs/heads/master.zip) 
+- [dom-to-image](https://github.com/tsayen/dom-to-image)
 
-## this files are published on the github pages : 
-- [helldivers-preset](https://amature0000.github.io/helldivers2-preset/)
+## This project is published to GitHub Pages.
 
-This project is a simple implementation for a single purpose. You are free to use this project for your own projects.
+This project is a simple implementation for a single purpose.
+- To Make your helldivers 2 stratagem loadout
+- Download image of your own loadout
+
+You are free to use this project for your own projects.
