@@ -11,8 +11,7 @@
 </head>
 
 <body>
-    <label for="title-input">제목 변경:</label>
-    <input type="text" id="title-input">
+    <input type="text" id="title-input" value="제목을 입력하세요">
     <div id="targetImg">
         <div class="header">
             <h1 id="icon-list-title">프리셋</h1>
@@ -31,9 +30,9 @@
         </div>
     </div>
     <hr>
-    <div>
-        <button class="button" onclick="down(false)">이미지로 저장(투명)</button>
-        <button class="button" onclick="down(true)">이미지로 저장(불투명)</button>
+    <div id="group-container">
+        <button class="button" onclick="down(true)">이미지 저장</button>
+        <button class="button" onclick="down(false)">이미지 저장(투명)</button>
     </div>
 
     <div id="group-container">

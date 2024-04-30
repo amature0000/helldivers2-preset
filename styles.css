@@ -1,5 +1,12 @@
 .group {
     margin-bottom: 20px;
+    display: inline-block;
+    margin-right: 5px;
+    white-space: nowrap;
+}
+
+#group-container {
+    white-space: nowrap;
 }
 
 .icons {
@@ -23,11 +30,6 @@
 #targetImg {
     width: 490px;
     height: 200px;
-}
-
-.group {
-    display: inline-block;
-    margin-right: 20px;
 }
 
 .header {
@@ -100,4 +102,20 @@ figcaption {
 
 .white-background {
     background-color: white;
+}
+
+input[type="text"] {
+    margin-top:25px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    font-size: 16px;
+}
+
+
+@media screen and (max-width: 767px) {
+    #icon-list {
+        width: 100%;
+    }
 }
