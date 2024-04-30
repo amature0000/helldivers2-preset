@@ -1,5 +1,5 @@
 # Helldivers 2 stratagem preset
-## In this project, I use assets from the following project :
+### In this project, I use assets from the following project :
 - [nvigneux/Helldivers-2-Stratagems-icons-svg](https://github.com/nvigneux/Helldivers-2-Stratagems-icons-svg)
     - download :
         [Helldivers-2-Stratagems-icons-svg.zip](https://github.com/nvigneux/Helldivers-2-Stratagems-icons-svg/archive/refs/heads/master.zip)
