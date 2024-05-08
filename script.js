@@ -46,6 +46,24 @@ document.addEventListener("DOMContentLoaded", function () {
     titleInput.addEventListener('input', function () {
         iconListTitle.textContent = titleInput.value;
     });
+
+    // 제목 숨기기
+    const checkbox = document.getElementById("checkbox");
+    const title = document.getElementById("icon-list-title");
+    const targetImg = document.getElementById("targetImg");
+    const bump = document.getElementById("bump");
+    
+    checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          title.style.display = 'none';
+          targetImg.style.height = '115px';
+          bump.style.height = "50px";
+        } else {
+          title.style.display = 'block';
+          targetImg.style.height = '165px';
+          bump.style.height = "0";
+        }
+      });
 });
 
 // 이미지로 다운로드

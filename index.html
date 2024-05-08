@@ -13,9 +13,10 @@
 </head>
 
 <body>
+    <div id="bump"></div>
     <div id="targetImg">
-        <div class="header">
-            <h1 id="icon-list-title">로드아웃</h1>
+        <div class="header" id="icon-list-title">
+            <h1 class="no-margin-vertical no-padding-vertical">로드아웃</h1>
         </div>
         <div class="empty-icon" data-target="icon1">
             <img src="assets/default.png">
@@ -33,6 +34,7 @@
     <hr>
     <div id="group-container">
         <input type="text" id="title-input" placeholder="로드아웃 제목을 입력하세요">
+        <input type="checkbox" id="checkbox"> 제목 숨기기
     </div>
     <div id="group-container">
         <button class="button" onclick="down(true)">이미지 저장</button>
