@@ -84,6 +84,7 @@ function down(background) {
         });
 }
 
+// 다음 선택창으로 넘기기
 function nextactive() {
     const emptyIcons = document.querySelectorAll('.empty-icon');
     emptyIcons.forEach(function (icon) {
