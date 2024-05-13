@@ -1,3 +1,4 @@
+let activeIconIndex = null;
 document.addEventListener("DOMContentLoaded", function () {
     // 이미지 펼치기
     const iconList = document.getElementById('icon-list');
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const clonedIcon = targetIcon.cloneNode(true);
                 emptyIcons[activeIconIndex].innerHTML = '';
                 emptyIcons[activeIconIndex].appendChild(clonedIcon);
+                nextactive();
             }
         }
     });
@@ -80,4 +82,14 @@ function down(background) {
             window.saveAs(blob, 'download.png');
             document.getElementById('targetImg').removeAttribute("class");
         });
+}
+
+function nextactive() {
+    const emptyIcons = document.querySelectorAll('.empty-icon');
+    emptyIcons.forEach(function (icon) {
+        icon.classList.remove('active');
+    });
+    activeIconIndex++;
+    if(activeIconIndex > 3) activeIconIndex = null;
+    emptyIcons[activeIconIndex].classList.add('active');
 }
