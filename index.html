@@ -10,25 +10,27 @@
     <link rel="stylesheet" href="styles.css">
     <script src="dom-to-image.js"></script>
     <script src="FileSaver.js"></script>
+    <script src="dataset.js"></script>
+    <script src="linkcopy.js"></script>
 </head>
 
 <body>
     <div id="bump"></div>
     <div id="targetImg">
-        <div class="header" id="icon-list-title">
-            <h1 class="no-margin-vertical no-padding-vertical">로드아웃</h1>
+        <div class="header">
+            <h1 class="no-margin-vertical no-padding-vertical"  id="icon-list-title">로드아웃</h1>
         </div>
-        <div class="empty-icon" data-target="icon1">
-            <img src="assets/default.png">
+        <div class="empty-icon" data-target="a">
+            <img src="assets/default.png" data-id="default">
         </div>
-        <div class="empty-icon" data-target="icon2">
-            <img src="assets/default.png">
+        <div class="empty-icon" data-target="b">
+            <img src="assets/default.png" data-id="default">
         </div>
-        <div class="empty-icon" data-target="icon3">
-            <img src="assets/default.png">
+        <div class="empty-icon" data-target="c">
+            <img src="assets/default.png" data-id="default">
         </div>
-        <div class="empty-icon" data-target="icon4">
-            <img src="assets/default.png">
+        <div class="empty-icon" data-target="d">
+            <img src="assets/default.png" data-id="default">
         </div>
     </div>
     <hr>
@@ -37,8 +39,9 @@
         <input type="checkbox" id="checkbox"> 제목 숨기기
     </div>
     <div id="group-container">
-        <button class="button" onclick="down(true)">이미지 저장</button>
-        <button class="button" onclick="down(false)">이미지 저장(투명)</button>
+        <button class="button blue" onclick="down(true)">이미지 저장</button>
+        <button class="button grey" id="copy-link-button">링크 복사</button>
+        <button class="button whitegray" onclick="down(false)">투명배경으로 저장</button>
     </div>
 
     <div id="group-container">
@@ -46,51 +49,51 @@
             <button class="button list toggle">궤도</button>
             <div class="icons">
                 <figure>
-                    <img class="img" src="assets/Bridge/Orbital Precision Strike.svg" alt="">
+                    <img src="assets/Bridge/Orbital Precision Strike.svg" alt="" data-id="1">
                     <figcaption>궤정타</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Orbital Cannons/Orbital Walking Barrage.svg" alt="">
+                    <img src="assets/Orbital Cannons/Orbital Walking Barrage.svg" alt="" data-id="2">
                     <figcaption>궤동타</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Orbital Cannons/Orbital 120MM HE Barrage.svg" alt="">
+                    <img src="assets/Orbital Cannons/Orbital 120MM HE Barrage.svg" alt="" data-id="3">
                     <figcaption>120MM</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Orbital Cannons/Orbital 380MM HE Barrage.svg" alt="">
+                    <img src="assets/Orbital Cannons/Orbital 380MM HE Barrage.svg" alt="" data-id="4">
                     <figcaption>380MM</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Orbital Cannons/Orbital Napalm Barrage.svg" alt="">
+                    <img src="assets/Orbital Cannons/Orbital Napalm Barrage.svg" alt="" data-id="5">
                     <figcaption>궤이팜</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Orbital Cannons/Orbital Airburst Strike.svg" alt="">
+                    <img src="assets/Orbital Cannons/Orbital Airburst Strike.svg" alt="" data-id="6">
                     <figcaption>궤공폭</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Orbital Cannons/Orbital Gatling Barrage.svg" alt="">
+                    <img src="assets/Orbital Cannons/Orbital Gatling Barrage.svg" alt="" data-id="7">
                     <figcaption>궤도개틀링</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Orbital Cannons/Orbital Laser.svg" alt="">
+                    <img src="assets/Orbital Cannons/Orbital Laser.svg" alt="" data-id="8">
                     <figcaption>궤도레이저</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Orbital Cannons/Orbital Railcannon Strike.svg" alt="">
+                    <img src="assets/Orbital Cannons/Orbital Railcannon Strike.svg" alt="" data-id="9">
                     <figcaption>궤도레일</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Bridge/Orbital EMS Strike.svg" alt="">
+                    <img src="assets/Bridge/Orbital EMS Strike.svg" alt="" data-id="10">
                     <figcaption>궤도EMS</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Bridge/Orbital Gas Strike.svg" alt="">
+                    <img src="assets/Bridge/Orbital Gas Strike.svg" alt="" data-id="11">
                     <figcaption>궤도가스</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Bridge/Orbital Smoke Strike.svg" alt="">
+                    <img src="assets/Bridge/Orbital Smoke Strike.svg" alt="" data-id="12">
                     <figcaption>궤도연막</figcaption>
                 </figure>
             </div>
@@ -100,31 +103,31 @@
             <button class="button list toggle">이글</button>
             <div class="icons">
                 <figure>
-                    <img class="img" src="assets/Hangar/Eagle Strafing Run.svg" alt="">
+                    <img src="assets/Hangar/Eagle Strafing Run.svg" alt="" data-id="13">
                     <figcaption>기총소사</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Hangar/Eagle 500KG Bomb.svg" alt="">
+                    <img src="assets/Hangar/Eagle 500KG Bomb.svg" alt="" data-id="14">
                     <figcaption>500KG</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Hangar/Eagle Airstrike.svg" alt="">
+                    <img src="assets/Hangar/Eagle Airstrike.svg" alt="" data-id="15">
                     <figcaption>이글공타</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Hangar/Eagle Cluster Bomb.svg" alt="">
+                    <img src="assets/Hangar/Eagle Cluster Bomb.svg" alt="" data-id="16">
                     <figcaption>집속탄</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Hangar/Eagle 110MM Rocket Pods.svg" alt="">
+                    <img src="assets/Hangar/Eagle 110MM Rocket Pods.svg" alt="" data-id="17">
                     <figcaption>110MM</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Hangar/Eagle Napalm Airstrike.svg" alt="">
+                    <img src="assets/Hangar/Eagle Napalm Airstrike.svg" alt="" data-id="18">
                     <figcaption>네이팜</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Hangar/Eagle Smoke Strike.svg" alt="">
+                    <img src="assets/Hangar/Eagle Smoke Strike.svg" alt="" data-id="19">
                     <figcaption>이글연막</figcaption>
                 </figure>
             </div>
@@ -134,51 +137,51 @@
             <button class="button list toggle">설치형</button>
             <div class="icons">
                 <figure>
-                    <img class="img" src="assets/Bridge/HMG Emplacement.svg" alt="">
+                    <img src="assets/Bridge/HMG Emplacement.svg" alt="" data-id="20">
                     <figcaption>거치포</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Bridge/Tesla Tower.svg" alt="">
+                    <img src="assets/Bridge/Tesla Tower.svg" alt="" data-id="21">
                     <figcaption>테슬라</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Engineering Bay/Anti-Personnel Minefield.svg" alt="">
+                    <img src="assets/Engineering Bay/Anti-Personnel Minefield.svg" alt="" data-id="22">
                     <figcaption>대인지뢰</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Engineering Bay/Incendiary Mines.svg" alt="">
+                    <img src="assets/Engineering Bay/Incendiary Mines.svg" alt="" data-id="23">
                     <figcaption>소이지뢰</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Engineering Bay/Anti-Tank Mines.svg" alt="">
+                    <img src="assets/Engineering Bay/Anti-Tank Mines.svg" alt="" data-id="24">
                     <figcaption>대전차지뢰</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Bridge/Shield Generator Relay.svg" alt="">
+                    <img src="assets/Bridge/Shield Generator Relay.svg" alt="" data-id="25">
                     <figcaption>실드릴레이</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Robotics Workshop/Autocannon Sentry.svg" alt="">
+                    <img src="assets/Robotics Workshop/Autocannon Sentry.svg" alt="" data-id="26">
                     <figcaption>오토캐넌</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Robotics Workshop/EMS Mortar Sentry.svg" alt="">
+                    <img src="assets/Robotics Workshop/EMS Mortar Sentry.svg" alt="" data-id="27">
                     <figcaption>EMS박격포</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Robotics Workshop/Mortar Sentry.svg" alt="">
+                    <img src="assets/Robotics Workshop/Mortar Sentry.svg" alt="" data-id="28">
                     <figcaption>박격포</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Robotics Workshop/Gatling Sentry.svg" alt="">
+                    <img src="assets/Robotics Workshop/Gatling Sentry.svg" alt="" data-id="29">
                     <figcaption>개틀링</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Robotics Workshop/Machine Gun Sentry.svg" alt="">
+                    <img src="assets/Robotics Workshop/Machine Gun Sentry.svg" alt="" data-id="30">
                     <figcaption>기관총</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Robotics Workshop/Rocket Sentry.svg" alt="">
+                    <img src="assets/Robotics Workshop/Rocket Sentry.svg" alt="" data-id="31">
                     <figcaption>로켓</figcaption>
                 </figure>
             </div>
@@ -188,64 +191,64 @@
             <button class="button list toggle">보급</button>
             <div class="icons">
                 <figure>
-                    <img class="img" src="assets/Robotics Workshop/Patriot Exosuit.svg" alt="">
+                    <img src="assets/Robotics Workshop/Patriot Exosuit.svg" alt="" data-id="32">
                     <figcaption>워커</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Robotics Workshop/Emancipator Exosuit.svg" alt="">
+                    <img src="assets/Robotics Workshop/Emancipator Exosuit.svg" alt="" data-id="33">
                     <figcaption>오캐워커</figcaption>
                 </figure>
                 <hr>
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Stalwart.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Stalwart.svg" alt="" data-id="34">
                     <figcaption>스털워트</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Machine Gun.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Machine Gun.svg" alt="" data-id="35">
                     <figcaption>기관총</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Heavy Machine Gun.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Heavy Machine Gun.svg" alt="" data-id="36">
                     <figcaption>중기관총</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Engineering Bay/Laser Cannon.svg" alt="">
+                    <img src="assets/Engineering Bay/Laser Cannon.svg" alt="" data-id="37">
                     <figcaption>레이저캐넌</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Anti-Materiel Rifle.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Anti-Materiel Rifle.svg" alt="" data-id="38">
                     <figcaption>대물저격</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Railgun.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Railgun.svg" alt="" data-id="39">
                     <figcaption>레일건</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Expendable Anti-Tank.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Expendable Anti-Tank.svg" alt="" data-id="40">
                     <figcaption>일회용</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Commando.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Commando.svg" alt="" data-id="41">
                     <figcaption>코만도</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Engineering Bay/Quasar Cannon.svg" alt="">
+                    <img src="assets/Engineering Bay/Quasar Cannon.svg" alt="" data-id="42">
                     <figcaption>퀘이사</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Engineering Bay/Grenade Launcher.svg" alt="">
+                    <img src="assets/Engineering Bay/Grenade Launcher.svg" alt="" data-id="43">
                     <figcaption>유탄발사기</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Flamethrower.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Flamethrower.svg" alt="" data-id="44">
                     <figcaption>화염방사기</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Chemical Agents/Sterilizer.svg" alt="">
+                    <img src="assets/Chemical Agents/Sterilizer.svg" alt="" data-id="45">
                     <figcaption>가스방사기</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Engineering Bay/Arc Thrower.svg" alt="">
+                    <img src="assets/Engineering Bay/Arc Thrower.svg" alt="" data-id="46">
                     <figcaption>아크발사기</figcaption>
                 </figure>
             </div>
@@ -255,48 +258,48 @@
             <button class="button list toggle">배낭</button>
             <div class="icons">
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Autocannon.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Autocannon.svg" alt="" data-id="47">
                     <figcaption>오토캐넌</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Recoilless Rifle.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Recoilless Rifle.svg" alt="" data-id="48">
                     <figcaption>무반동</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Spear.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Spear.svg" alt="" data-id="49">
                     <figcaption>스피어</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Patriotic Administration Center/Airburst Rocket Launcher.svg" alt="">
+                    <img src="assets/Patriotic Administration Center/Airburst Rocket Launcher.svg" alt="" data-id="50">
                     <figcaption>알라봉</figcaption>
                 </figure>
                 <hr>
                 <figure>
-                    <img class="img" src="assets/Engineering Bay/Ballistic Shield Backpack.svg" alt="">
+                    <img src="assets/Engineering Bay/Ballistic Shield Backpack.svg" alt="" data-id="51">
                     <figcaption>방패</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Robotics Workshop/Guard Dog.svg" alt="">
+                    <img src="assets/Robotics Workshop/Guard Dog.svg" alt="" data-id="52">
                     <figcaption>가드독</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Engineering Bay/Guard Dog Rover.svg" alt="">
+                    <img src="assets/Engineering Bay/Guard Dog Rover.svg" alt="" data-id="53">
                     <figcaption>가드독:로버</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Chemical Agents/Guard Dog Breath.svg" alt="">
+                    <img src="assets/Chemical Agents/Guard Dog Breath.svg" alt="" data-id="54">
                     <figcaption>가드독:가스</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Engineering Bay/Shield Generator Pack.svg" alt="">
+                    <img src="assets/Engineering Bay/Shield Generator Pack.svg" alt="" data-id="55">
                     <figcaption>실드팩</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Engineering Bay/Supply Pack.svg" alt="">
+                    <img src="assets/Engineering Bay/Supply Pack.svg" alt="" data-id="56">
                     <figcaption>보급팩</figcaption>
                 </figure>
                 <figure>
-                    <img class="img" src="assets/Hangar/Jump Pack.svg" alt="">
+                    <img src="assets/Hangar/Jump Pack.svg" alt="" data-id="57">
                     <figcaption>점프팩</figcaption>
                 </figure>
             </div>

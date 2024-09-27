@@ -26,7 +26,7 @@ h1 {
     cursor: pointer;
 }
 
-.img {
+img {
     background-color: black;
     height: 100px;
     width: 100px;
@@ -68,11 +68,20 @@ h1 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #3498db;
-    color: white;
     transition: background-color 0.3s;
 }
-
+.button.blue {
+    background-color: #3498db;
+    color: white;
+}
+.button.grey {
+    background-color:#70c6fe;
+    color: white;
+}
+.button.whitegray {
+    background-color:rgb(216, 255, 255);
+    color: white;
+}
 .button:hover {
     background-color: #2980b9;
 }
