@@ -6,8 +6,9 @@
 
 ## This project is published to GitHub Pages.
 
-This project is a simple implementation for a single purpose.
+This project is a simple implementation. Key features are:
 - To Make your helldivers 2 stratagem loadout
 - Download image of your own loadout
+- Copy and paste this url to share your loadout settings
 
 You are free to use this project for your own projects.
