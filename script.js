@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 제목 변경 및 URL 업데이트
     const titleInput = document.getElementById('title-input');
-    const iconListTitle = document.getElementById('icon-list-title');
+    const iconListTitle = document.getElementById('icon-list-title-h1');
     titleInput.addEventListener('input', function () {
         iconListTitle.textContent = titleInput.value;
         updateURLWithTitle(titleInput.value);
@@ -98,7 +98,7 @@ function initializeFromURL() {
     // 제목 처리
     const title = params.get('title');
     if (title) {
-        document.getElementById('icon-list-title').textContent = title;
+        document.getElementById('icon-list-title-h1').textContent = title;
         document.getElementById('title-input').value = title;
     }
 
