@@ -43,31 +43,41 @@ def load_config():
         logging.error(f"설정 파일 로드 중 오류 발생: {e}")
         print(f"설정 파일 로드 중 오류 발생: {e}")
 
-def toggle_monitoring(event):
+def toggle_monitoring():
     global monitoring
-    try:
-        monitoring = not monitoring
-        if monitoring:
-            logging.info("키보드 입력 모니터링 시작")
-            print("키보드 입력 모니터링 시작")
-            collected_keys.clear()
-        else:
-            logging.info("키보드 입력 모니터링 중지")
-            print("키보드 입력 모니터링 중지")
-            process_and_insert()
-    except Exception as e:
-        logging.error(f"토글 중 오류 발생: {e}")
+    monitoring = not monitoring
+    if monitoring:
+        logging.info("키보드 입력 모니터링 시작")
+        print("키보드 입력 모니터링 시작")
+        collected_keys.clear()
+    else:
+        logging.info("키보드 입력 모니터링 중지")
+        print("키보드 입력 모니터링 중지")
+        process_and_insert()
+
+def exit_monitoring():
+    global monitoring
+    monitoring = False
+    logging.info("모니터링 취소")
+    print("모니터링 취소")
+    collected_keys.clear()
 
 def on_key_press(event):
-    if not monitoring:
+    global collected_keys
+    if event.name == 'esc':
+        exit_monitoring()
         return
     if event.name == toggle_key:
+        toggle_monitoring()
         return
-    global collected_keys
-
-    if event.name == 'space':
+    if not monitoring:
+        return
+        
+    logging.info(f"키 입력 감지: {event.name}")
+    if event.name == 'backspace':
+        collected_keys.pop()
+    elif event.name == 'space':
         collected_keys.append(' ')
-        logging.info("키 수집: space (공백)")
     elif len(event.name) == 1:
         print(event.name)
         if event.name.lower() in shift_keys:
@@ -75,9 +85,6 @@ def on_key_press(event):
         else:
             key = event.name.lower()
         collected_keys.append(key)
-        logging.info(f"키 수집: {key}")
-    else :
-        logging.info(f"키 입력 감지: {event.name}")
 
 def switch_keyboard_layout(layout_id):
     try:
@@ -87,6 +94,7 @@ def switch_keyboard_layout(layout_id):
         logging.error(f"입력 언어 전환 중 오류 발생: {e}")
 
 def process_and_insert():
+    global toggle_key
     try:
         # 입력 언어를 한국어로 전환
         switch_keyboard_layout(KOREAN_LAYOUT_ID)
@@ -120,15 +128,14 @@ def process_and_insert():
             logging.warning("변환할 한글 문자가 없습니다.")
             print("변환할 한글 문자가 없습니다.")
 
-        time.sleep(0.1)
         # 입력 언어를 영어로 전환
+        time.sleep(0.1)
         switch_keyboard_layout(ENGLISH_LAYOUT_ID)
     except Exception as e:
         logging.error(f"입력 처리 중 오류 발생: {e}")
 
 def main():
     load_config()
-    keyboard.on_release_key(toggle_key, toggle_monitoring)
     keyboard.on_press(on_key_press)
 
     print(f"프로그램이 실행 중입니다. '{toggle_key}' 키를 눌러 입력을 시작/종료하세요.(config.json을 수정하여 변경 가능합니다)")
