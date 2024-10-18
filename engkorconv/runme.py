@@ -30,9 +30,10 @@ collected_keys = []
 cursor_staleness = 0
 key_count = 0
 toggle_key = '\\'  # 기본값
+cursor_enable = False # 기본값
 
 def load_config():
-    global toggle_key
+    global toggle_key, cursor_enable
     if not os.path.exists(CONFIG_FILE):
         logging.warning(f"설정 파일 '{CONFIG_FILE}'가 존재하지 않습니다. 기본 토글 키를 사용합니다: {toggle_key}")
         return
@@ -40,6 +41,7 @@ def load_config():
         with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
             config = json.load(f)
             temp_toggle_key = config.get('toggle_key', toggle_key)
+            cursor_enable = config.get('sursor_enable', cursor_enable)
             if temp_toggle_key in prom_keys:
                 logging.warning(f"{temp_toggle_key}는 사용할 수 없는 키입니다. 기본 토글 키를 사용합니다: {toggle_key}")
             else:
@@ -106,7 +108,7 @@ def on_key_press(event):
 
         key_count += 1
 
-    cursor_staleness = max(0, min(cursor_staleness, key_count))
+    cursor_staleness = max(0, min(cursor_staleness, key_count)) if cursor_enable else 0
 
 def switch_keyboard_layout(layout_id):
     try:
