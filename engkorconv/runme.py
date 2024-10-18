@@ -5,7 +5,7 @@ import time
 import ctypes
 from ctypes import wintypes
 from eng_kor_converter import engkor
-from eng_kor_map import shift_keys
+from key_map import shift_keys, prom_keys
 import json
 import logging
 import os
@@ -27,6 +27,8 @@ ENGLISH_LAYOUT_ID = "00000409"  # 영어 (미국)
 
 monitoring = False
 collected_keys = []
+cursor_staleness = 0
+key_count = 0
 toggle_key = '\\'  # 기본값
 
 def load_config():
@@ -37,33 +39,40 @@ def load_config():
     try:
         with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
             config = json.load(f)
-            toggle_key = config.get('toggle_key', toggle_key)
-            logging.info(f"설정 파일 로드 완료. 토글 키: {toggle_key}")
+            temp_toggle_key = config.get('toggle_key', toggle_key)
+            if temp_toggle_key in prom_keys:
+                logging.warning(f"{temp_toggle_key}는 사용할 수 없는 키입니다. 기본 토글 키를 사용합니다: {toggle_key}")
+            else:
+                logging.info(f"설정 파일 로드 완료. 토글 키: {toggle_key}")
     except Exception as e:
         logging.error(f"설정 파일 로드 중 오류 발생: {e}")
         print(f"설정 파일 로드 중 오류 발생: {e}")
 
 def toggle_monitoring():
-    global monitoring
+    global monitoring, cursor_staleness, key_count
     monitoring = not monitoring
     if monitoring:
         logging.info("키보드 입력 모니터링 시작")
         print("키보드 입력 모니터링 시작")
-        collected_keys.clear()
     else:
         logging.info("키보드 입력 모니터링 중지")
         print("키보드 입력 모니터링 중지")
         process_and_insert()
+    collected_keys.clear()
+    cursor_staleness = 0
+    key_count = 0
 
 def exit_monitoring():
-    global monitoring
+    global monitoring, cursor_staleness, key_count
     monitoring = False
     logging.info("모니터링 취소")
     print("모니터링 취소")
     collected_keys.clear()
+    cursor_staleness = 0
+    key_count = 0
 
 def on_key_press(event):
-    global collected_keys
+    global collected_keys, cursor_staleness, key_count
     if event.name == 'esc':
         exit_monitoring()
         return
@@ -74,17 +83,30 @@ def on_key_press(event):
         return
         
     logging.info(f"키 입력 감지: {event.name}")
-    if event.name == 'backspace':
-        collected_keys.pop()
-    elif event.name == 'space':
-        collected_keys.append(' ')
-    elif len(event.name) == 1:
+    
+    if event.name == 'left':
+        cursor_staleness += 1
+    elif event.name == 'right':
+        cursor_staleness -= 1
+
+    elif event.name == 'backspace' and key_count > 0:
+        collected_keys.pop(key_count - cursor_staleness - 1)
+        key_count -= 1
+        cursor_staleness = min(cursor_staleness, key_count)
+    elif event.name == 'space' or len(event.name) == 1:
         print(event.name)
+        key = ' ' if event.name == 'space' else event.name.lower()
         if event.name.lower() in shift_keys:
             key = event.name
+
+        if cursor_staleness == 0:
+            collected_keys.append(key)
         else:
-            key = event.name.lower()
-        collected_keys.append(key)
+            collected_keys.insert(key_count - cursor_staleness, key)
+
+        key_count += 1
+
+    cursor_staleness = max(0, min(cursor_staleness, key_count))
 
 def switch_keyboard_layout(layout_id):
     try:
@@ -94,7 +116,7 @@ def switch_keyboard_layout(layout_id):
         logging.error(f"입력 언어 전환 중 오류 발생: {e}")
 
 def process_and_insert():
-    global toggle_key
+    global toggle_key, cursor_staleness
     try:
         # 입력 언어를 한국어로 전환
         switch_keyboard_layout(KOREAN_LAYOUT_ID)
@@ -107,22 +129,21 @@ def process_and_insert():
         print(f"수집된 한글 입력: {korean_string}")
 
         if korean_string:
+            # 커서 위치 조정
+            if cursor_staleness > 0:
+                for _ in range(cursor_staleness):
+                    press_once('right')
             # 영어 입력 삭제
             if not toggle_key == 'enter':
-                for _ in range(len(collected_keys)):
-                    keyboard.press_and_release('backspace')
-                    time.sleep(0.03)
-                keyboard.press_and_release('backspace')
-                time.sleep(0.03)
-                keyboard.press_and_release('backspace')
+                for _ in range(len(collected_keys) + 2):
+                    press_once('backspace')
                 logging.info(f"백스페이스 실행 : {len(collected_keys)+2}회")
-            time.sleep(0.03)
             # 한글 문자열 타이핑
             if toggle_key == 'enter':
-                keyboard.press_and_release('enter')
+                press_once('enter')
             keyboard.write(korean_string, delay=0.03)
             if toggle_key == 'enter':
-                keyboard.press_and_release('enter')
+                press_once('enter')
             logging.info("한글 문자열 타이핑 완료")
         else:
             logging.warning("변환할 한글 문자가 없습니다.")
@@ -133,6 +154,10 @@ def process_and_insert():
         switch_keyboard_layout(ENGLISH_LAYOUT_ID)
     except Exception as e:
         logging.error(f"입력 처리 중 오류 발생: {e}")
+
+def press_once(str):
+    keyboard.press_and_release(str)
+    time.sleep(0.03)
 
 def main():
     load_config()

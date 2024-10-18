@@ -24,3 +24,6 @@ cons_double = {
 
 # shift keys
 shift_keys = {'r', 'e', 'q', 't', 'w', 'o', 'p'}
+
+# prom keys
+prom_keys = {'left', 'right', 'backspace', 'space'}
