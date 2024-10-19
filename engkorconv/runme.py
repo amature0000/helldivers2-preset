@@ -35,20 +35,22 @@ cursor_enable = False # 기본값
 def load_config():
     global toggle_key, cursor_enable
     if not os.path.exists(CONFIG_FILE):
-        logging.warning(f"설정 파일 '{CONFIG_FILE}'가 존재하지 않습니다. 기본 토글 키를 사용합니다: {toggle_key}")
+        logging.warning(f"설정 파일 '{CONFIG_FILE}'가 존재하지 않습니다. ")
+        logging.info(f"기본값 : {toggle_key=}, {cursor_enable=}")
         return
     try:
         with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
             config = json.load(f)
             temp_toggle_key = config.get('toggle_key', toggle_key)
-            cursor_enable = config.get('sursor_enable', cursor_enable)
+            cursor_enable = config.get('cursor_enable', cursor_enable)
             if temp_toggle_key in prom_keys:
-                logging.warning(f"{temp_toggle_key}는 사용할 수 없는 키입니다. 기본 토글 키를 사용합니다: {toggle_key}")
+                logging.warning(f"{temp_toggle_key}는 사용할 수 없는 키입니다.")
             else:
-                logging.info(f"설정 파일 로드 완료. 토글 키: {toggle_key}")
+                toggle_key = temp_toggle_key
     except Exception as e:
         logging.error(f"설정 파일 로드 중 오류 발생: {e}")
         print(f"설정 파일 로드 중 오류 발생: {e}")
+    logging.info(f"설정 로드 : {toggle_key=}, {cursor_enable=}")
 
 def toggle_monitoring():
     global monitoring, cursor_staleness, key_count
