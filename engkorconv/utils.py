@@ -18,10 +18,7 @@ def toggle_monitoring():
 def start_monitoring():
     if state.monitoring:
         logging.warning("이미 모니터링 중입니다.")
-        if state.start_key == 'enter':
-            logging.warning("채팅창을 닫아 모니터링을 종료합니다.")
-            exit_monitoring()
-        elif len(state.start_key) == 1:
+        if len(state.start_key) == 1:
             press_once('backspace')
         return
     
@@ -44,6 +41,7 @@ def exit_monitoring():
     logging.info("모니터링 취소")
     print("모니터링 취소")
     state.collected_keys.clear()
+    state.chatingchang = False
 
 def process_and_insert():
     try:
@@ -77,8 +75,9 @@ def process_and_insert():
 
 
 def press_once(str):
-    time.sleep(0.03)
+    time.sleep(0.02)
     keyboard.press_and_release(str)
+    time.sleep(0.02)
     
 def switch_keyboard_layout(layout_id):
     try:

@@ -7,6 +7,9 @@ import state
 import logging
 
 def on_key_press(event):
+    if event.name == 'enter':
+        state.chatingchang = not state.chatingchang
+
     if event.name == 'esc':
         exit_monitoring()
         return
@@ -19,12 +22,16 @@ def on_key_press(event):
     elif event.name == state.end_key:
         end_monitoring()
         return
+        
     if not state.monitoring:
+        return
+    if not state.chatingchang:
+        exit_monitoring()
         return
         
     logging.info(f"키 입력 감지: {event.name}")
         
-    if event.name == 'backspace':
+    if event.name == 'backspace' and len(state.collected_keys) > 0:
         state.collected_keys.pop()
     elif event.name == 'space' or len(event.name) == 1:
         print(event.name)
@@ -36,7 +43,7 @@ def on_key_press(event):
 def main():
     state.load_config()
     keyboard.on_press(on_key_press)
-    if state.is_toggle:
+    if state.toggle_key:
         print(f"프로그램이 실행 중입니다. '{state.toggle_key}' 키를 눌러 입력을 시작/종료하세요.")
     else:
         print(f"프로그램이 실행 중입니다. '{state.start_key}'/'{state.end_key}' 키를 눌러 입력을 시작/종료하세요.")

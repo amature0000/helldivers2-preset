@@ -21,14 +21,14 @@ ENGLISH_LAYOUT_ID = "00000409"  # 영어 (미국)
 
 monitoring = False
 collected_keys = []
-is_toggle = False
+chatingchang = False
 toggle_key = None
 start_key = 'enter'  # 기본값
 end_key = '\\'
 cursor_enable = False # 기본값
 
 def load_config():
-    global config, start_key, end_key, toggle_key, is_toggle
+    global config, start_key, end_key, toggle_key, chatingchang
     if not os.path.exists(CONFIG_FILE):
         logging.warning(f"설정 파일 '{CONFIG_FILE}'가 존재하지 않습니다. ")
         logging.info(f"기본값 : {toggle_key=}")
@@ -52,7 +52,6 @@ def load_config():
                 toggle_key = start_key
                 start_key = None
                 end_key = None
-                is_toggle = True
     except Exception as e:
         logging.error(f"설정 파일 로드 중 오류 발생: {e}")
         print(f"설정 파일 로드 중 오류 발생: {e}")
