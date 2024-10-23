@@ -1,4 +1,4 @@
 {
-    "toggle_key": "\\",
-    "cursor_enable": false
+    "start_key": "enter",
+    "end_key" : "\\"
 }

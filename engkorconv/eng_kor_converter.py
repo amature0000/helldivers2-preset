@@ -1,5 +1,5 @@
 from hangul_utils import join_jamos
-from eng_kor_map import cons, vowels, cons_double
+from key_map import cons, vowels, cons_double
 
 def engkor(text):
     result = ''   # 영 > 한 변환 결과
