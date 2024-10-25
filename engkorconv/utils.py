@@ -45,10 +45,7 @@ def exit_monitoring():
 
 def process_and_insert():
     try:
-        # 입력 언어를 한국어로 전환
-        switch_keyboard_layout(state.KOREAN_LAYOUT_ID)
         time.sleep(0.1)
-
         # 수집된 키를 한글 문자열로 변환
         english_str = ''.join(state.collected_keys)
         korean_string = engkor(english_str)
@@ -66,22 +63,11 @@ def process_and_insert():
         else:
             logging.warning("변환할 한글 문자가 없습니다.")
             print("변환할 한글 문자가 없습니다.")
-
-        # 입력 언어를 영어로 전환
         time.sleep(0.1)
-        switch_keyboard_layout(state.ENGLISH_LAYOUT_ID)
     except Exception as e:
         logging.error(f"입력 처리 중 오류 발생: {e}")
-
 
 def press_once(str):
     time.sleep(0.02)
     keyboard.press_and_release(str)
     time.sleep(0.02)
-    
-def switch_keyboard_layout(layout_id):
-    try:
-        state.LoadKeyboardLayout(layout_id, 1)
-        logging.info(f"입력 언어 전환: {layout_id}")
-    except Exception as e:
-        logging.error(f"입력 언어 전환 중 오류 발생: {e}")

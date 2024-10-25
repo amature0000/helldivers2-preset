@@ -31,7 +31,7 @@ def load_config():
     global config, start_key, end_key, toggle_key, chatingchang
     if not os.path.exists(CONFIG_FILE):
         logging.warning(f"설정 파일 '{CONFIG_FILE}'가 존재하지 않습니다. ")
-        logging.info(f"기본값 : {toggle_key=}")
+        logging.info(f"기본값 : {start_key=}, {end_key=}, {toggle_key=}")
         return
     try:
         with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
