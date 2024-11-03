@@ -8,7 +8,10 @@ import logging
 
 def on_key_press(event):
     if event.name == 'enter':
-        state.chatingchang = not state.chatingchang
+        state.chatingchang = not state.chatingchang  
+        if not state.chatingchang:
+            exit_monitoring()
+            return
 
     if event.name == 'esc':
         exit_monitoring()
@@ -24,9 +27,6 @@ def on_key_press(event):
         return
         
     if not state.monitoring:
-        return
-    if not state.chatingchang:
-        exit_monitoring()
         return
         
     logging.info(f"키 입력 감지: {event.name}")
