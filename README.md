@@ -18,8 +18,8 @@ You are free to use this project for your own projects.
 this program is a Python-based application. It monitors your keyboard input, converts&assembles to **Korean string**, and replaces the original **English string**. this program works well in the Helldivers2 game.
 
 ## How to run
-1. Download [`runme.exe`](./dist/runme.exe) and [`config.json`](./dist/config.json) 
-    - or you can download this [zip file](./download.zip)
+1. Download [`runme.exe`](./engkorconv/dist/runme.exe) and [`config.json`](./engkorconv/dist/config.json) 
+    - or you can download this [zip file](./engkorconv/download.zip)
 2. Place both files in the same directory and run `runme.exe` 
     - `config.json` is optional; missing config file will make program run as default settings
 3. Press the `start key` to start recording your keyboard input, and press the `end key` to stop recording and print your inputs.
