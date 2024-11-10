@@ -1,6 +1,37 @@
 let activeIconIndex = null;
 
 document.addEventListener("DOMContentLoaded", function () {
+    // 테이블 동적 생성
+    const groups = {};
+
+    Object.keys(imageMap).forEach(id => {
+        const item = imageMap[id];
+        const groupName = item.group;
+        if (!groupName) return;
+        if (!groups[groupName]) {
+            groups[groupName] = [];
+        }
+        groups[groupName].push({ id, ...item });
+    });
+
+    Object.keys(groups).forEach(groupName => {
+        const groupDiv = document.querySelector(`.group[data-group="${groupName}"] .icons`);
+        
+        groups[groupName].forEach(item => {
+            const figure = document.createElement("figure");
+            const img = document.createElement("img");
+            const figcaption = document.createElement("figcaption");
+
+            img.src = item.src;
+            img.dataset.id = item.id;
+            figcaption.textContent = item.caption;
+
+            figure.appendChild(img);
+            figure.appendChild(figcaption);
+            groupDiv.appendChild(figure);
+        });
+    });
+    
     // URL에서 초기 선택 상태 불러오기
     initializeFromURL();
 
@@ -41,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const selectedId = targetIcon.getAttribute('data-id') || 'default';
                 emptyIcons[activeIconIndex].innerHTML = '';
                 const newImg = document.createElement('img');
-                newImg.src = imageMap[selectedId] || imageMap["default"];
+                newImg.src = imageMap[selectedId].src || imageMap["default"].src;
                 newImg.setAttribute('data-id', selectedId);
                 emptyIcons[activeIconIndex].appendChild(newImg);
                 updateURLWithSelection(activeIconIndex, selectedId);
@@ -86,9 +117,9 @@ function initializeFromURL() {
     // 각 icon 파라미터 처리
     for (let i = 1; i <= 4; i++) {
         const iconId = params.get(`${i}`);
-        if (iconId && imageMap[iconId] && emptyIcons[i - 1]) {
+        if (iconId && imageMap[iconId].src && emptyIcons[i - 1]) {
             const img = document.createElement('img');
-            img.src = imageMap[iconId];
+            img.src = imageMap[iconId].src;
             img.setAttribute('data-id', iconId);
             emptyIcons[i - 1].innerHTML = '';
             emptyIcons[i - 1].appendChild(img);
