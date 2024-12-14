@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const groups = {};
     
     imageMap.forEach((item, index) => {
+        console.log(index + " : " + item.caption)
         const groupName = item.group;
         if (!groupName) return;
         if (!groups[groupName]) {
