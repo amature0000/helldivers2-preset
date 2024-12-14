@@ -10,25 +10,38 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!groups[groupName]) {
             groups[groupName] = [];
         }
-        groups[groupName].push({ id: index + 1, ...item });
+        groups[groupName].push({ id: index, ...item });
     });
 
     Object.keys(groups).forEach(groupName => {
         const groupDiv = document.querySelector(`.group[data-group="${groupName}"] .icons`);
-        
-        groups[groupName].forEach(item => {
+        const table = document.createElement('table');
+        const tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+        var tr = document.createElement('tr');
+
+        groups[groupName].forEach((item, idx) => {
+            // 4개의 figure마다 row 생성**
+            if (idx % 4 === 0) {
+                tr = document.createElement('tr');
+                tbody.appendChild(tr);
+            }
+            
+            const td = document.createElement('td');
             const figure = document.createElement("figure");
             const img = document.createElement("img");
             const figcaption = document.createElement("figcaption");
-
+    
             img.src = item.src;
             img.dataset.id = item.id;
             figcaption.textContent = item.caption;
-
+    
             figure.appendChild(img);
             figure.appendChild(figcaption);
-            groupDiv.appendChild(figure);
+            td.appendChild(figure);
+            tr.appendChild(td);
         });
+        groupDiv.appendChild(table);
     });
     
     // URL에서 초기 선택 상태 불러오기
