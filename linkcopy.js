@@ -4,25 +4,24 @@ document.addEventListener("DOMContentLoaded", function () {
     copyButton.addEventListener('click', function () {
         const params = new URLSearchParams(window.location.search);
         let newQuery = '';
-        
+        let titleQuery = ""
         for (let [key, value] of params.entries()) {
             if (key === 'title') {
-                newQuery += `${key}=${value}&`; // 'title'은 인코딩하지 않음
+                titleQuery += `${key}=${value}&`; // 'title'은 인코딩하지 않음
             } else {
                 newQuery += `${key}=${encodeURIComponent(value)}&`; // 나머지 파라미터는 인코딩
             }
         }
+        newQuery = titleQuery + newQuery;
         newQuery = newQuery.slice(0, -1); // 마지막 & 제거
         
         const currentURL = `${window.location.origin}${window.location.pathname}?${newQuery}`;
         
         navigator.clipboard.writeText(currentURL)
             .then(() => {
-                // 복사가 성공했을 때 사용자에게 알림
                 showCopySuccess();
             })
             .catch(err => {
-                // 복사가 실패했을 때 사용자에게 알림
                 alert('링크 복사에 실패했습니다.');
                 console.error('Error copying text: ', err);
             });
