@@ -142,8 +142,9 @@ function initializeFromURL() {
     // 제목 처리
     const title = params.get('title');
     if (title) {
-        document.getElementById('icon-list-title-h1').textContent = title;
-        document.getElementById('title-input').value = title;
+        var replacedTitle = title.replace("_", " ");
+        document.getElementById('icon-list-title-h1').textContent = replacedTitle
+        document.getElementById('title-input').value = replacedTitle;
     }
 
     // 제목 숨기기 처리
