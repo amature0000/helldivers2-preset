@@ -3,15 +3,14 @@ let activeIconIndex = null;
 document.addEventListener("DOMContentLoaded", function () {
     // 테이블 동적 생성
     const groups = {};
-
-    Object.keys(imageMap).forEach(id => {
-        const item = imageMap[id];
+    
+    imageMap.forEach((item, index) => {
         const groupName = item.group;
         if (!groupName) return;
         if (!groups[groupName]) {
             groups[groupName] = [];
         }
-        groups[groupName].push({ id, ...item });
+        groups[groupName].push({ id: index + 1, ...item });
     });
 
     Object.keys(groups).forEach(groupName => {
@@ -69,10 +68,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (activeIconIndex !== null) {
             const targetIcon = event.target;
             if (targetIcon.tagName === 'IMG') {
-                const selectedId = targetIcon.getAttribute('data-id') || 'default';
+                const selectedId = parseInt(targetIcon.getAttribute('data-id'), 10);//targetIcon.getAttribute('data-id') || 'default';
                 emptyIcons[activeIconIndex].innerHTML = '';
                 const newImg = document.createElement('img');
-                newImg.src = imageMap[selectedId].src || imageMap["default"].src;
+                newImg.src = imageMap[selectedId].src || imageMap[0].src;
                 newImg.setAttribute('data-id', selectedId);
                 emptyIcons[activeIconIndex].appendChild(newImg);
                 updateURLWithSelection(activeIconIndex, selectedId);
@@ -115,14 +114,14 @@ function initializeFromURL() {
     const emptyIcons = document.querySelectorAll('.empty-icon');
 
     // 각 icon 파라미터 처리
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 0; i < emptyIcons.length; i++) {
         const iconId = params.get(`${i}`);
-        if (iconId && imageMap[iconId].src && emptyIcons[i - 1]) {
+        if (iconId && imageMap[iconId].src && emptyIcons[i]) {
             const img = document.createElement('img');
             img.src = imageMap[iconId].src;
             img.setAttribute('data-id', iconId);
-            emptyIcons[i - 1].innerHTML = '';
-            emptyIcons[i - 1].appendChild(img);
+            emptyIcons[i].innerHTML = '';
+            emptyIcons[i].appendChild(img);
         }
     }
 
@@ -146,7 +145,7 @@ function initializeFromURL() {
 // 선택 상태를 URL에 업데이트
 function updateURLWithSelection(index, id) {
     const params = new URLSearchParams(window.location.search);
-    params.set(`${index + 1}`, id);
+    params.set(`${index}`, id);
     const newURL = `${window.location.pathname}?${params.toString()}`;
     history.replaceState({}, '', newURL);
 }
