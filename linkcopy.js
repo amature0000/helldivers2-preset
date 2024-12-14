@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let titleQuery = ""
         for (let [key, value] of params.entries()) {
             if (key === 'title') {
-                titleQuery += `${key}=${value}&`; // 'title'은 인코딩하지 않음
+                var replacedValue = value.replace(" ", '_');
+                titleQuery += `${key}=${replacedValue}&`; // 'title'은 인코딩하지 않음
             } else {
                 newQuery += `${key}=${encodeURIComponent(value)}&`; // 나머지 파라미터는 인코딩
             }
