@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var tr = document.createElement('tr');
 
         groups[groupName].forEach((item, idx) => {
-            // 4개의 figure마다 row 생성**
+            // 4개 figure마다 row 생성
             if (idx % 4 === 0) {
                 tr = document.createElement('tr');
                 tbody.appendChild(tr);
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // URL에서 초기 선택 상태 불러오기
     initializeFromURL();
 
-    // 이미지 펼치기
+    // 이미지 펼치기 버튼
     const iconList = document.getElementById('icon-list');
     const toggles = document.querySelectorAll('.toggle');
     toggles.forEach(function (toggle) {
@@ -60,9 +60,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 타겟 이미지 active 토글
     const emptyIcons = document.querySelectorAll('.empty-icon');
     emptyIcons.forEach(function (icon, index) {
+        // 타겟 이미지 active 토글 기능
         icon.addEventListener('click', function () {
             if (this.classList.contains('active')) {
                 this.classList.remove('active');
@@ -75,6 +75,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 activeIconIndex = index;
             }
         });
+        icon.addEventListener('contextmenu', function(event) {
+            event.preventDefault(); // 기본 컨텍스트 메뉴 방지
+            icon.innerHTML = '';
+            const newImg = document.createElement('img');
+            newImg.src = "assets/default.png";
+            newImg.setAttribute('data-id', 'default')
+            icon.appendChild(newImg);
+            updateURLWithSelection(index, null);
+        });
     });
 
     // 이미지 선택 시 URL 업데이트 및 이미지 배치
@@ -82,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (activeIconIndex !== null) {
             const targetIcon = event.target;
             if (targetIcon.tagName === 'IMG') {
-                const selectedId = parseInt(targetIcon.getAttribute('data-id'), 10);//targetIcon.getAttribute('data-id') || 'default';
+                const selectedId = parseInt(targetIcon.getAttribute('data-id'), 10);
                 emptyIcons[activeIconIndex].innerHTML = '';
                 const newImg = document.createElement('img');
                 newImg.src = imageMap[selectedId].src || imageMap[0].src;
@@ -122,6 +131,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// 다음 선택창으로 넘기기
+function nextactive() {
+    const emptyIcons = document.querySelectorAll('.empty-icon');
+    emptyIcons.forEach(function (icon) {
+        icon.classList.remove('active');
+    });
+    activeIconIndex++;
+    if(activeIconIndex > 3) activeIconIndex = null;
+    if(activeIconIndex !== null && emptyIcons[activeIconIndex]) {
+        emptyIcons[activeIconIndex].classList.add('active');
+    }
+}
+
 // URL에서 선택 상태 초기화
 function initializeFromURL() {
     const params = new URLSearchParams(window.location.search);
@@ -156,15 +178,16 @@ function initializeFromURL() {
         document.getElementById('checkbox').checked = true;
     }
 }
-
+// ==============================================================================================
 // 선택 상태를 URL에 업데이트
 function updateURLWithSelection(index, id) {
     const params = new URLSearchParams(window.location.search);
-    params.set(`${index}`, id);
+    if (id == null) params.delete(`${index}`);
+    else params.set(`${index}`, id);
+    
     const newURL = `${window.location.pathname}?${params.toString()}`;
     history.replaceState({}, '', newURL);
 }
-
 // 제목을 URL에 업데이트
 function updateURLWithTitle(title) {
     const params = new URLSearchParams(window.location.search);
@@ -176,40 +199,10 @@ function updateURLWithTitle(title) {
     const newURL = `${window.location.pathname}?${params.toString()}`;
     history.replaceState({}, '', newURL);
 }
-
 // 제목 숨기기 상태를 URL에 업데이트
 function updateURLWithTitleVisibility(isVisible) {
     const params = new URLSearchParams(window.location.search);
     params.set('hideTitle', !isVisible);
     const newURL = `${window.location.pathname}?${params.toString()}`;
     history.replaceState({}, '', newURL);
-}
-
-// 이미지로 다운로드
-function down(background) {
-    if (background) {
-        document.getElementById('targetImg').setAttribute("class", "white-background");
-    }
-    const emptyIcons = document.querySelectorAll('.empty-icon');
-    emptyIcons.forEach(function (icon) {
-        icon.classList.remove('active');
-    });
-    domtoimage.toBlob(document.getElementById('targetImg'))
-        .then(function (blob) {
-            window.saveAs(blob, 'download.png');
-            document.getElementById('targetImg').removeAttribute("class");
-        });
-}
-
-// 다음 선택창으로 넘기기
-function nextactive() {
-    const emptyIcons = document.querySelectorAll('.empty-icon');
-    emptyIcons.forEach(function (icon) {
-        icon.classList.remove('active');
-    });
-    activeIconIndex++;
-    if(activeIconIndex > 3) activeIconIndex = null;
-    if(activeIconIndex !== null && emptyIcons[activeIconIndex]) {
-        emptyIcons[activeIconIndex].classList.add('active');
-    }
 }
