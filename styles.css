@@ -74,16 +74,19 @@ img {
     background-color: #3498db;
     color: white;
 }
-.button.grey {
-    background-color:#70c6fe;
+.button.green {
+    background-color:#70fe75;
     color: white;
 }
 .button.whitegray {
     background-color:rgb(216, 255, 255);
     color: white;
 }
-.button:hover {
+.button.blue:hover {
     background-color: #2980b9;
+}
+.button.green:hover {
+    background-color: #33b929;
 }
 
 .button.list {

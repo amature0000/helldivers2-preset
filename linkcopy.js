@@ -42,3 +42,19 @@ function showCopySuccess() {
         copyButton.textContent = originalText;
     }, 2000); // 2초 후 원래 텍스트로 복구
 }
+
+// 이미지 다운로드
+function down(background) {
+    if (background) {
+        document.getElementById('targetImg').setAttribute("class", "white-background");
+    }
+    const emptyIcons = document.querySelectorAll('.empty-icon');
+    emptyIcons.forEach(function (icon) {
+        icon.classList.remove('active');
+    });
+    domtoimage.toBlob(document.getElementById('targetImg'))
+        .then(function (blob) {
+            window.saveAs(blob, 'download.png');
+            document.getElementById('targetImg').removeAttribute("class");
+        });
+}
