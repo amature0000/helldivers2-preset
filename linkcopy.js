@@ -1,34 +1,38 @@
-// 기존 copy 링크 버튼 기능 수정
-document.addEventListener("DOMContentLoaded", function () {
-    const copyButton = document.getElementById('copy-link-button');
-    copyButton.addEventListener('click', function () {
-        const params = new URLSearchParams(window.location.search);
-        let newQuery = '';
-        let titleQuery = ""
-        for (let [key, value] of params.entries()) {
-            if (key === 'title') {
-                // var replacedValue = value.replace(" ", '_');
-                titleQuery += `${key}=${encodeURIComponent(value)}&`; // 'title'은 인코딩하지 않음 => 인코딩해야 링크가 끊기지 않음
-            } else {
-                newQuery += `${key}=${encodeURIComponent(value)}&`; // 나머지 파라미터는 인코딩
-            }
-        }
-        newQuery = titleQuery + newQuery;
-        newQuery = newQuery.slice(0, -1); // 마지막 & 제거
-        
-        const currentURL = `${window.location.origin}${window.location.pathname}?${newQuery}`;
-        
-        navigator.clipboard.writeText(currentURL)
-            .then(() => {
-                showCopySuccess();
-            })
-            .catch(err => {
-                alert('링크 복사에 실패했습니다.');
-                console.error('Error copying text: ', err);
-            });
-    });
-});
+// URL로부터 parameter 가져오기
+function getParamsFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const encodedData = params.get('i');
 
+    if (encodedData) {
+        try {
+            const decodedQuery = decodeBase64(encodedData);
+            const decodedParams = new URLSearchParams(decodedQuery);
+            const result = {};
+            for (let [key, value] of decodedParams.entries()) {
+                result[key] = value;
+            }
+            console.log(result)
+            return result;
+        } catch (error) {
+            console.error('디코딩 중 오류 발생:', error);
+            return {};
+        }
+    }
+    return {};
+}
+// parameter로부터 URL 설정하기
+function setURLFromParams(params) {
+    let queryString = '';
+    for (let key in params) {
+        if (params.hasOwnProperty(key)) {
+            queryString += `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}&`;
+        }
+    }
+    queryString = queryString.slice(0, -1);
+    const encodedQuery = encodeBase64(queryString);
+    const newURL = `${window.location.origin}${window.location.pathname}?i=${encodedQuery}`;
+    window.history.replaceState(null, '', newURL);
+}
 // 복사 성공 메시지 표시 함수
 function showCopySuccess() {
     const copyButton = document.getElementById('copy-link-button');
@@ -57,4 +61,17 @@ function down(background) {
             window.saveAs(blob, 'download.png');
             document.getElementById('targetImg').removeAttribute("class");
         });
+}
+
+function encodeBase64(value) {
+    return btoa(unescape(encodeURIComponent(value))) // Base64로 인코딩
+        .replace(/\+/g, '-')  // '+'를 '-'로 변경
+        .replace(/\//g, '_')  // '/'를 '_'로 변경
+        .replace(/=+$/, '');  // '=' 패딩 제거
+}
+
+function decodeBase64(value) {
+    return decodeURIComponent(escape(atob(
+        value.replace(/-/g, '+').replace(/_/g, '/')
+    )));
 }

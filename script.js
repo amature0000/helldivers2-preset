@@ -129,6 +129,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         updateURLWithTitleVisibility(!this.checked);
     });
+
+    // URL 복사 버튼
+    const copyButton = document.getElementById('copy-link-button');
+    copyButton.addEventListener('click', function () {
+        currentURL = window.location.href;
+        navigator.clipboard.writeText(currentURL)
+            .then(() => {
+                showCopySuccess();
+            })
+            .catch(err => {
+                alert('링크 복사에 실패했습니다.');
+                console.error('Error copying text: ', err);
+            });
+    });
 });
 
 // 다음 선택창으로 넘기기
@@ -143,15 +157,15 @@ function nextactive() {
         emptyIcons[activeIconIndex].classList.add('active');
     }
 }
-
-// URL에서 선택 상태 초기화
+// ==============================================================================================
+// URL로부터 상태 불러오기
 function initializeFromURL() {
-    const params = new URLSearchParams(window.location.search);
+    const params = getParamsFromURL();
     const emptyIcons = document.querySelectorAll('.empty-icon');
 
     // 각 icon 파라미터 처리
     for (let i = 0; i < emptyIcons.length; i++) {
-        const iconId = params.get(`${i}`);
+        const iconId = params[`${i}`];
         if (iconId && imageMap[iconId].src && emptyIcons[i]) {
             const img = document.createElement('img');
             img.src = imageMap[iconId].src;
@@ -162,15 +176,14 @@ function initializeFromURL() {
     }
 
     // 제목 처리
-    const title = params.get('title');
+    const title = params['t'];
     if (title) {
-        var replacedTitle = title.replace("_", " ");
-        document.getElementById('icon-list-title-h1').textContent = replacedTitle
-        document.getElementById('title-input').value = replacedTitle;
+        document.getElementById('icon-list-title-h1').textContent = title
+        document.getElementById('title-input').value = title;
     }
 
     // 제목 숨기기 처리
-    const hideTitle = params.get('hideTitle');
+    const hideTitle = params['h'];
     if (hideTitle === 'true') {
         document.getElementById('icon-list-title').style.display = 'none';
         document.getElementById('targetImg').style.height = '115px';
@@ -181,28 +194,21 @@ function initializeFromURL() {
 // ==============================================================================================
 // 선택 상태를 URL에 업데이트
 function updateURLWithSelection(index, id) {
-    const params = new URLSearchParams(window.location.search);
-    if (id == null) params.delete(`${index}`);
-    else params.set(`${index}`, id);
-    
-    const newURL = `${window.location.pathname}?${params.toString()}`;
-    history.replaceState({}, '', newURL);
+    const params = getParamsFromURL();
+    if (id) params[`${index}`] = id;
+    else delete params[`${index}`];
+    setURLFromParams(params);
 }
 // 제목을 URL에 업데이트
 function updateURLWithTitle(title) {
-    const params = new URLSearchParams(window.location.search);
-    if (title) {
-        params.set('title', title);
-    } else {
-        params.delete('title');
-    }
-    const newURL = `${window.location.pathname}?${params.toString()}`;
-    history.replaceState({}, '', newURL);
+    const params = getParamsFromURL();
+    if (title) params['t'] = title;
+    else delete params['t'];
+    setURLFromParams(params);
 }
 // 제목 숨기기 상태를 URL에 업데이트
 function updateURLWithTitleVisibility(isVisible) {
-    const params = new URLSearchParams(window.location.search);
-    params.set('hideTitle', !isVisible);
-    const newURL = `${window.location.pathname}?${params.toString()}`;
-    history.replaceState({}, '', newURL);
+    const params = getParamsFromURL();
+    params['h'] = !isVisible;
+    setURLFromParams(params);
 }
