@@ -137,12 +137,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const currentURL = setURLFromParams(params);
         navigator.clipboard.writeText(currentURL)
             .then(() => {
-                showCopySuccess();
+                showCopySuccess("copy-link-button");
             })
             .catch(err => {
                 alert('링크 복사에 실패했습니다.');
                 console.error('Error copying text: ', err);
             });
+    });
+    // 초기화
+    const rstButton = document.getElementById('hard_rst_button');
+    rstButton.addEventListener('click', function () {
+        window.location.href = `${window.location.origin}${window.location.pathname}`;
     });
 });
 

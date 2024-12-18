@@ -50,12 +50,12 @@ function setURLFromParams(params) {
 }
 
 // 복사 성공 메시지 표시 함수
-function showCopySuccess() {
-    const copyButton = document.getElementById('copy-link-button');
+function showCopySuccess(id) {
+    const copyButton = document.getElementById(id);
     
     // 버튼 텍스트 변경
     const originalText = copyButton.textContent;
-    copyButton.textContent = '복사 완료!';
+    copyButton.textContent = '클립보드에 복사 완료!';
     
     // 잠시 후 원래 텍스트로 되돌리기
     setTimeout(() => {
@@ -64,7 +64,7 @@ function showCopySuccess() {
 }
 
 // 이미지 다운로드
-function down(background) {
+function down(background, buttonId) {
     if (background) {
         document.getElementById('targetImg').setAttribute("class", "white-background");
     }
@@ -74,6 +74,15 @@ function down(background) {
     });
     domtoimage.toBlob(document.getElementById('targetImg'))
         .then(function (blob) {
+            const item = new ClipboardItem({
+                'image/png': blob
+            });
+            navigator.clipboard.write([item]).then(function () {
+                showCopySuccess(buttonId);
+            }).catch(function (err) {
+                alert("클립보드 복사에 실패했습니다.");
+                console.error('클립보드에 복사 실패:', err);
+            });
             window.saveAs(blob, 'download.png');
             document.getElementById('targetImg').removeAttribute("class");
         });
