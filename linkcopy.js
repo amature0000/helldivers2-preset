@@ -1,3 +1,60 @@
+// ==============================================================================================
+// URL로부터 상태 불러오기
+function initializeFromURL() {
+    const params = decodeURLParams();
+    const emptyIcons = document.querySelectorAll('.empty-icon');
+
+    // 각 icon 파라미터 처리
+    for (let i = 0; i < emptyIcons.length; i++) {
+        const iconId = params[`${i}`];
+        if (iconId && imageMap[iconId].src && emptyIcons[i]) {
+            const img = document.createElement('img');
+            img.src = imageMap[iconId].src;
+            img.setAttribute('data-id', iconId);
+            emptyIcons[i].innerHTML = '';
+            emptyIcons[i].appendChild(img);
+        }
+    }
+
+    // 제목 처리
+    const title = params['t'];
+    if (title) {
+        document.getElementById('icon-list-title-h1').textContent = title
+        document.getElementById('title-input').value = title;
+    }
+
+    // 제목 숨기기 처리
+    const hideTitle = params['h'];
+
+    if (hideTitle === 1) {
+        document.getElementById('icon-list-title').style.display = 'none';
+        document.getElementById('targetImg').style.height = '115px';
+        document.getElementById('bump').style.height = "50px";
+        document.getElementById('checkbox').checked = true;
+    }
+}
+// ==============================================================================================
+// 선택 상태를 URL에 업데이트
+function updateURLWithSelection(index, id) {
+    const params = decodeURLParams();
+    if (id) params[`${index}`] = id;
+    else params[`${index}`] = 0;
+    setURLFromParams(params);
+}
+// 제목을 URL에 업데이트
+function updateURLWithTitle(title) {
+    const params = decodeURLParams();
+    params['t'] = title;
+    setURLFromParams(params);
+}
+// 제목 숨기기 상태를 URL에 업데이트
+function updateURLWithTitleVisibility(isVisible) {
+    const params = decodeURLParams();
+    if(isVisible) params['h'] = 0;
+    else params['h'] = 1;
+    setURLFromParams(params);
+}
+// ==============================================================================================
 // URL로부터 params 생성 후 반환하기
 function decodeURLParams() {
     const queryString = window.location.search.substring(1);
@@ -48,7 +105,7 @@ function setURLFromParams(params) {
     window.history.replaceState(null, '', newURL);
     return newURL;
 }
-
+// ==============================================================================================
 // 복사 성공 메시지 표시 함수
 function showCopySuccess(id) {
     const copyButton = document.getElementById(id);
@@ -62,7 +119,6 @@ function showCopySuccess(id) {
         copyButton.textContent = originalText;
     }, 2000); // 2초 후 원래 텍스트로 복구
 }
-
 // 이미지 다운로드
 function down(background, buttonId) {
     if (background) {
