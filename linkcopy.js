@@ -1,38 +1,54 @@
-// URL로부터 parameter 가져오기
-function getParamsFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    const encodedData = params.get('i');
+// URL로부터 params 생성 후 반환하기
+function decodeURLParams() {
+    const queryString = window.location.search.substring(1);
+    const params = {
+        "t": "",
+        0  : 0,
+        1  : 0,
+        2  : 0,
+        3  : 0,
+        "h": 0
+    };
+    const pairs = queryString.split("&");
 
-    if (encodedData) {
-        try {
-            const decodedQuery = decodeBase64(encodedData);
-            const decodedParams = new URLSearchParams(decodedQuery);
-            const result = {};
-            for (let [key, value] of decodedParams.entries()) {
-                result[key] = value;
+    pairs.forEach(pair => {
+        const [key, value] = pair.split("=").map(decodeURIComponent);
+
+        if (key === "t") {
+            params["t"] = value.replace("_", " ");
+        } 
+        else if (key === "d") {
+            const decodedvalue = parseInt(value, 36).toString().padStart(9, "0");
+            if (decodedvalue.length === 9) {
+                params[0] = parseInt(decodedvalue.substring(0, 2), 10);
+                params[1] = parseInt(decodedvalue.substring(2, 4), 10);
+                params[2] = parseInt(decodedvalue.substring(4, 6), 10);
+                params[3] = parseInt(decodedvalue.substring(6, 8), 10);
+                params["h"] = parseInt(decodedvalue.substring(8, 9), 10);
             }
-            console.log(result)
-            return result;
-        } catch (error) {
-            console.error('디코딩 중 오류 발생:', error);
-            return {};
         }
-    }
-    return {};
+    });
+    return params;
 }
 // parameter로부터 URL 설정하기
 function setURLFromParams(params) {
-    let queryString = '';
-    for (let key in params) {
-        if (params.hasOwnProperty(key)) {
-            queryString += `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}&`;
-        }
-    }
-    queryString = queryString.slice(0, -1);
-    const encodedQuery = encodeBase64(queryString);
-    const newURL = `${window.location.origin}${window.location.pathname}?i=${encodedQuery}`;
+    console.log(params)
+    const queryString = [];
+    queryString.push(`t=${params['t'].replace(" ", "_")}`);
+
+    const d = params[0] * 10000000 +
+        params[1] * 100000 +
+        params[2] * 1000 +
+        params[3] * 10 +
+        params["h"];
+    const incodingD = d.toString(36);
+
+    queryString.push(`d=${incodingD}`);
+    const newURL = `${window.location.origin}${window.location.pathname}?${queryString.join("&")}`;
     window.history.replaceState(null, '', newURL);
+    return newURL;
 }
+
 // 복사 성공 메시지 표시 함수
 function showCopySuccess() {
     const copyButton = document.getElementById('copy-link-button');
@@ -61,17 +77,4 @@ function down(background) {
             window.saveAs(blob, 'download.png');
             document.getElementById('targetImg').removeAttribute("class");
         });
-}
-
-function encodeBase64(value) {
-    return btoa(unescape(encodeURIComponent(value))) // Base64로 인코딩
-        .replace(/\+/g, '-')  // '+'를 '-'로 변경
-        .replace(/\//g, '_')  // '/'를 '_'로 변경
-        .replace(/=+$/, '');  // '=' 패딩 제거
-}
-
-function decodeBase64(value) {
-    return decodeURIComponent(escape(atob(
-        value.replace(/-/g, '+').replace(/_/g, '/')
-    )));
 }

@@ -133,7 +133,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // URL 복사 버튼
     const copyButton = document.getElementById('copy-link-button');
     copyButton.addEventListener('click', function () {
-        currentURL = window.location.href;
+        const params = decodeURLParams();
+        const currentURL = setURLFromParams(params);
         navigator.clipboard.writeText(currentURL)
             .then(() => {
                 showCopySuccess();
@@ -160,7 +161,7 @@ function nextactive() {
 // ==============================================================================================
 // URL로부터 상태 불러오기
 function initializeFromURL() {
-    const params = getParamsFromURL();
+    const params = decodeURLParams();
     const emptyIcons = document.querySelectorAll('.empty-icon');
 
     // 각 icon 파라미터 처리
@@ -184,7 +185,8 @@ function initializeFromURL() {
 
     // 제목 숨기기 처리
     const hideTitle = params['h'];
-    if (hideTitle === 'true') {
+
+    if (hideTitle === 1) {
         document.getElementById('icon-list-title').style.display = 'none';
         document.getElementById('targetImg').style.height = '115px';
         document.getElementById('bump').style.height = "50px";
@@ -194,21 +196,21 @@ function initializeFromURL() {
 // ==============================================================================================
 // 선택 상태를 URL에 업데이트
 function updateURLWithSelection(index, id) {
-    const params = getParamsFromURL();
+    const params = decodeURLParams();
     if (id) params[`${index}`] = id;
-    else delete params[`${index}`];
+    else params[`${index}`] = 0;
     setURLFromParams(params);
 }
 // 제목을 URL에 업데이트
 function updateURLWithTitle(title) {
-    const params = getParamsFromURL();
-    if (title) params['t'] = title;
-    else delete params['t'];
+    const params = decodeURLParams();
+    params['t'] = title;
     setURLFromParams(params);
 }
 // 제목 숨기기 상태를 URL에 업데이트
 function updateURLWithTitleVisibility(isVisible) {
-    const params = getParamsFromURL();
-    params['h'] = !isVisible;
+    const params = decodeURLParams();
+    if(isVisible) params['h'] = 0;
+    else params['h'] = 1;
     setURLFromParams(params);
 }
