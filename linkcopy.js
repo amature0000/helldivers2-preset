@@ -15,7 +15,7 @@ function decodeURLParams() {
         const [key, value] = pair.split("=").map(decodeURIComponent);
 
         if (key === "t") {
-            params["t"] = value.replace("_", " ");
+            params["t"] = value.replaceAll("_", " ");
         } 
         else if (key === "d") {
             const decodedvalue = parseInt(value, 36).toString().padStart(9, "0");
@@ -34,7 +34,7 @@ function decodeURLParams() {
 function setURLFromParams(params) {
     console.log(params)
     const queryString = [];
-    queryString.push(`t=${params['t'].replace(" ", "_")}`);
+    queryString.push(`t=${params['t'].replaceAll(" ", "_")}`);
 
     const d = params[0] * 10000000 +
         params[1] * 100000 +
