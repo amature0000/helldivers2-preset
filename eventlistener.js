@@ -133,16 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // URL 복사 버튼
     const copyButton = document.getElementById('copy-link-button');
     copyButton.addEventListener('click', function () {
-        const params = decodeURLParams();
-        const currentURL = setURLFromParams(params);
-        navigator.clipboard.writeText(currentURL)
-            .then(() => {
-                showCopySuccess("copy-link-button");
-            })
-            .catch(err => {
-                alert('링크 복사에 실패했습니다.');
-                console.error('Error copying text: ', err);
-            });
+        copyFunct();
     });
     // 초기화
     const rstButton = document.getElementById('hard_rst_button');

@@ -77,11 +77,11 @@ function decodeURLParams() {
         else if (key === "d") {
             const decodedvalue = parseInt(value, 36).toString().padStart(9, "0");
             if (decodedvalue.length === 9) {
-                params[0] = parseInt(decodedvalue.substring(0, 2), 10);
-                params[1] = parseInt(decodedvalue.substring(2, 4), 10);
-                params[2] = parseInt(decodedvalue.substring(4, 6), 10);
-                params[3] = parseInt(decodedvalue.substring(6, 8), 10);
-                params["h"] = parseInt(decodedvalue.substring(8, 9), 10);
+                params["h"] = parseInt(decodedvalue.substring(0, 1), 10);
+                params[3] = parseInt(decodedvalue.substring(1, 3), 10);
+                params[2] = parseInt(decodedvalue.substring(3, 5), 10);
+                params[1] = parseInt(decodedvalue.substring(5, 7), 10);
+                params[0] = parseInt(decodedvalue.substring(7, 9), 10);
             }
         }
     });
@@ -93,11 +93,11 @@ function setURLFromParams(params) {
     const queryString = [];
     queryString.push(`t=${params['t'].replaceAll(" ", "_")}`);
 
-    const d = params[0] * 10000000 +
-        params[1] * 100000 +
-        params[2] * 1000 +
-        params[3] * 10 +
-        params["h"];
+    const d = params["h"] * 100000000 +
+        params[3] * 1000000 +
+        params[2] * 10000 +
+        params[1] * 100 +
+        params[0];
     const incodingD = d.toString(36);
 
     queryString.push(`d=${incodingD}`);
@@ -118,6 +118,19 @@ function showCopySuccess(id) {
     setTimeout(() => {
         copyButton.textContent = originalText;
     }, 2000); // 2초 후 원래 텍스트로 복구
+}
+// 링크 복사
+function copyFunct() {
+    const params = decodeURLParams();
+        const currentURL = setURLFromParams(params);
+        navigator.clipboard.writeText(currentURL)
+            .then(() => {
+                showCopySuccess("copy-link-button");
+            })
+            .catch(err => {
+                alert('링크 복사에 실패했습니다.');
+                console.error('Error copying text: ', err);
+            });
 }
 // 이미지 다운로드
 function down(background, buttonId) {
