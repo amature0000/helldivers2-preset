@@ -140,6 +140,11 @@ document.addEventListener("DOMContentLoaded", function () {
     rstButton.addEventListener('click', function () {
         window.location.href = `${window.location.origin}${window.location.pathname}`;
     });
+    // github 버튼
+    const githubButton = document.getElementById("goto_github_button");
+    githubButton.addEventListener("click", function() {
+        window.open("https://github.com/amature0000/helldivers2-preset", "_blank");
+    });
 });
 
 // 다음 선택창으로 넘기기

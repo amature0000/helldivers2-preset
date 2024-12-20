@@ -9,11 +9,6 @@ h1 {
     white-space: nowrap;
 }
 
-#group-container {
-    white-space: nowrap;
-    margin-top: 15px;
-}
-
 .icons {
     display: none;
 }
@@ -58,8 +53,24 @@ img {
     border-color: red;
 }
 
+#group-container-checkbox {
+    white-space: nowrap;
+    margin-top: 15px;
+}
+
+#group-container-buttons {
+    white-space: nowrap;
+    margin-top: 10px;
+}
+
+#group-container-selections {
+    white-space: nowrap;
+    margin-top: 10px;
+}
+
 .button {
     display: inline-block;
+    vertical-align: middle;
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
@@ -69,27 +80,55 @@ img {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    height: 40px; /* 고정 높이 */
 }
+
 .button.blue {
     background-color: #3498db;
     color: white;
 }
+
 .button.green {
-    background-color:#70fe75;
+    background-color: #70fe75;
     color: white;
 }
+
 .button.red {
-    background-color:#fe7070;
+    background-color: #fe7070;
     color: white;
 }
+
+.button.black {
+    background-color: #000000;
+    color: white;
+}
+
 .button.blue:hover {
     background-color: #2980b9;
 }
+
 .button.green:hover {
     background-color: #33b929;
 }
+
 .button.red:hover {
     background-color: #b92929;
+}
+
+.button.black:hover {
+    background-color: #a1a1a1;
+}
+
+#goto_github_button {
+    padding: 0; /* 패딩 제거 */
+    height: 40px;
+    width: 40px;
+}
+
+#goto_github_button img {
+    background-color: transparent;
+    height: 24px;
+    width: auto;
 }
 
 .button.list {
@@ -148,10 +187,4 @@ input[type="text"] {
 .no-padding-vertical {
     padding-top: 0;
     padding-bottom: 0;
-}
-
-@media screen and (max-width: 767px) {
-    #icon-list {
-        width: 100%;
-    }
 }

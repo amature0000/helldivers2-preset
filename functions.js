@@ -111,7 +111,11 @@ function showCopySuccess(id) {
     const copyButton = document.getElementById(id);
     
     // 버튼 텍스트 변경
-    const originalText = copyButton.textContent;
+    let originalText = ""
+    if(id=="copy-link-button") originalText = "링크 복사";
+    else if(id=="download_button_1") originalText = "다운로드";
+    else originalText = "다운로드(투명배경)";
+    
     copyButton.textContent = '클립보드에 복사 완료!';
     
     // 잠시 후 원래 텍스트로 되돌리기
