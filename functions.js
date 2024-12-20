@@ -91,8 +91,7 @@ function decodeURLParams() {
 function setURLFromParams(params) {
     console.log(params)
     const queryString = [];
-    queryString.push(`t=${params['t'].replaceAll(" ", "_")}`);
-
+    
     const d = params["h"] * 100000000 +
         params[3] * 1000000 +
         params[2] * 10000 +
@@ -101,6 +100,8 @@ function setURLFromParams(params) {
     const incodingD = d.toString(36);
 
     queryString.push(`d=${incodingD}`);
+    queryString.push(`t=${params['t'].replaceAll(" ", "_")}`);
+
     const newURL = `${window.location.origin}${window.location.pathname}?${queryString.join("&")}`;
     window.history.replaceState(null, '', newURL);
     return newURL;
