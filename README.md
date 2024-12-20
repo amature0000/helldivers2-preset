@@ -1,9 +1,12 @@
 # Helldivers 2 stratagem preset
-### This project uses assets from [nvigneux/Helldivers-2-Stratagems-icons-svg](https://github.com/nvigneux/Helldivers-2-Stratagems-icons-svg)
+## Reference
+This project uses assets from [nvigneux/Helldivers-2-Stratagems-icons-svg](https://github.com/nvigneux/Helldivers-2-Stratagems-icons-svg)
 
-## This project is published on GitHub Pages.
-
-This project is a simple implementation with the following key features :
+thanks to nvigneux for the nice project.
+## Usage
+This project is published on GitHub Pages.
 - Create helldivers 2 stratagem loadout
-- And download the image of loadout
-- Can also share the loadout by copying URL
+- Download the image of loadout
+- Share the loadout by copying URL
+
+This project is dedicated to Korean community users. You can modify it to support your own language for liberty and democracy.

@@ -55,7 +55,7 @@ img {
 
 #group-container-checkbox {
     white-space: nowrap;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 #group-container-buttons {
@@ -166,7 +166,6 @@ figcaption {
 }
 
 input[type="text"] {
-    margin-top: 25px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -187,4 +186,14 @@ input[type="text"] {
 .no-padding-vertical {
     padding-top: 0;
     padding-bottom: 0;
+}
+
+details {
+    user-select: none;
+}
+
+summary {
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
 }
