@@ -27,7 +27,7 @@ const imageMap = [
     {src :"assets/icons/Robotics Workshop/EMS Mortar Sentry.svg", caption : "EMS박격포", group: "group3"},
     {src :"assets/icons/Robotics Workshop/Mortar Sentry.svg", caption : "박격포", group: "group3"},
     {src :"assets/icons/Engineering Bay/Anti-Personnel Minefield.svg", caption : "지뢰", group: "group3"},
-    {src :"assets/icons/_Experimental Stratagems/Gas Mine.svg", caption : "가스지뢰", group: "group3"},
+    {src :"assets/default.png"/*"assets/icons/_Experimental Stratagems/Gas Mine.svg"*/, caption : "가스지뢰", group: "group3"},
     {src :"assets/icons/Engineering Bay/Incendiary Mines.svg", caption : "소이지뢰", group: "group3"},
     {src :"assets/icons/Engineering Bay/Anti-Tank Mines.svg", caption : "대전차지뢰", group: "group3"},
     {src :"assets/icons/Robotics Workshop/Gatling Sentry.svg", caption : "개틀링", group: "group3"},
@@ -60,7 +60,7 @@ const imageMap = [
     {src :"assets/icons/Patriotic Administration Center/Autocannon.svg", caption : "오토캐넌", group: "group5"},
     {src :"assets/icons/Patriotic Administration Center/Recoilless Rifle.svg", caption : "무반동", group: "group5"},
     {src :"assets/icons/Patriotic Administration Center/Spear.svg", caption : "스피어", group: "group5"},
-    {src :"assets/icons/_Experimental Stratagems/StA-X3 W.A.S.P. Launcher.svg", caption : "와스프", group: "group5"},
+    {src :"assets/default.png"/*"assets/icons/_Experimental Stratagems/StA-X3 W.A.S.P. Launcher.svg"*/, caption : "와스프", group: "group5"},
     {src :"assets/default.png", caption : "", group: "group5"}, // padding
     {src :"assets/default.png", caption : "", group: "group5"},
     {src :"assets/default.png", caption : "", group: "group5"},
