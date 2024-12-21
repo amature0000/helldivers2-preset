@@ -92,10 +92,10 @@ function setURLFromParams(params) {
     console.log(params)
     const queryString = [];
     
-    const d = params["h"] * 100000000 +
-        params[3] * 1000000 +
-        params[2] * 10000 +
-        params[1] * 100 +
+    const d = params["h"] * 1e8 +
+        params[3] * 1e6 +
+        params[2] * 1e4 +
+        params[1] * 1e2 +
         params[0];
     const incodingD = d.toString(36);
 
