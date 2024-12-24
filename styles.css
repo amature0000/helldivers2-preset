@@ -1,6 +1,13 @@
 h1 {
     margin: 5px;
 }
+.items_margin {
+    margin: 5px;
+}
+
+.itemsButton {
+    margin-right:10px;
+}
 
 .group {
     margin-bottom: 20px;
@@ -32,6 +39,10 @@ img {
     height: 165px;
 }
 
+.targetImg_style {
+    width: 475px;
+}
+
 .header {
     height: 50px;
     margin: 0;
@@ -39,6 +50,17 @@ img {
 }
 
 .empty-icon {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #000;
+    margin: 5px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.empty-icon_style {
     width: 100px;
     height: 100px;
     border: 2px solid #000;
@@ -89,7 +111,7 @@ img {
 }
 
 .button.green {
-    background-color: #70fe75;
+    background-color: #1f9423;
     color: white;
 }
 
@@ -108,7 +130,7 @@ img {
 }
 
 .button.green:hover {
-    background-color: #33b929;
+    background-color: #195715;
 }
 
 .button.red:hover {
@@ -196,4 +218,14 @@ summary {
     font-weight: bold;
     cursor: pointer;
     user-select: none;
+}
+
+#itemList {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+#itemList li {
+    margin-bottom: 40px;
 }

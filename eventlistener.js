@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const groups = {};
     
     imageMap.forEach((item, index) => {
+        index = imageIndex.findIndex(n => n == item.src);
         console.log(index + " : " + item.caption)
         const groupName = item.group;
         if (!groupName) return;
@@ -45,8 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
         groupDiv.appendChild(table);
     });
     
-    // URL에서 초기 선택 상태 불러오기
-    initializeFromURL();
 
     // 이미지 펼치기 버튼
     const iconList = document.getElementById('icon-list');
@@ -94,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const selectedId = parseInt(targetIcon.getAttribute('data-id'), 10);
                 emptyIcons[activeIconIndex].innerHTML = '';
                 const newImg = document.createElement('img');
-                newImg.src = imageMap[selectedId].src || imageMap[0].src;
+                newImg.src = imageIndex[selectedId] || imageIndex[0];
                 newImg.setAttribute('data-id', selectedId);
                 emptyIcons[activeIconIndex].appendChild(newImg);
                 updateURLWithSelection(activeIconIndex, selectedId);
@@ -133,7 +132,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // URL 복사 버튼
     const copyButton = document.getElementById('copy-link-button');
     copyButton.addEventListener('click', function () {
-        copyFunct();
+        copyFunct("copy-link-button");
+    });
+    // 로드아웃 저장 버튼
+    const saveButton = document.getElementById('save_button');
+    saveButton.addEventListener('click', function () {
+        const params = decodeURLParams();
+        addItem(params);
     });
     // 초기화
     const rstButton = document.getElementById('hard_rst_button');
@@ -145,6 +150,9 @@ document.addEventListener("DOMContentLoaded", function () {
     githubButton.addEventListener("click", function() {
         window.open("https://github.com/amature0000/helldivers2-preset", "_blank");
     });
+
+    initializeFromURL();
+    displayItems();
 });
 
 // 다음 선택창으로 넘기기
