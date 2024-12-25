@@ -61,10 +61,10 @@ const imageMap = [
     {src :"assets/icons/Patriotic Administration Center/Autocannon.svg", caption : "오토캐넌", group: "group5"},
     {src :"assets/icons/Patriotic Administration Center/Recoilless Rifle.svg", caption : "무반동", group: "group5"},
     {src :"assets/icons/Patriotic Administration Center/Spear.svg", caption : "스피어", group: "group5"},
-    //{src :"assets/default.png"/*"assets/icons/_Experimental Stratagems/StA-X3 W.A.S.P. Launcher.svg"*/, caption : "와스프", group: "group5"},
-    //{src :"assets/default.png", caption : "", group: "group5"}, // padding
-    //{src :"assets/default.png", caption : "", group: "group5"},
-    //{src :"assets/default.png", caption : "", group: "group5"},
+    {src :"assets/icons/Patriotic Administration Center/StA-X3 W.A.S.P. Launcher.svg", caption : "와스프", group: "group5"},
+    {src :"assets/default.png", caption : "", group: "group5"}, // padding
+    {src :"assets/default.png", caption : "", group: "group5"},
+    {src :"assets/default.png", caption : "", group: "group5"},
     {src :"assets/icons/Hangar/Jump Pack.svg", caption : "점프팩", group: "group5"},
     {src :"assets/icons/Robotics Workshop/Guard Dog.svg", caption : "가드독", group: "group5"},
     {src :"assets/icons/Engineering Bay/Guard Dog Rover.svg", caption : "가드독:로버", group: "group5"},
@@ -138,4 +138,5 @@ const imageIndex = [
     "assets/icons/Engineering Bay/Ballistic Shield Backpack.svg",
     "assets/icons/Urban Legends/Directional Shield.svg",
     "assets/icons/Engineering Bay/Shield Generator Pack.svg",
+    "assets/icons/Patriotic Administration Center/StA-X3 W.A.S.P. Launcher.svg"
 ]
