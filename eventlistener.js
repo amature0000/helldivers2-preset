@@ -145,6 +145,11 @@ document.addEventListener("DOMContentLoaded", function () {
     rstButton.addEventListener('click', function () {
         window.location.href = `${window.location.origin}${window.location.pathname}`;
     });
+    // 초기화
+    const rndButton = document.getElementById('random_button');
+    rndButton.addEventListener('click', function () {
+        randomSelect();
+    });
     // github 버튼
     const githubButton = document.getElementById("goto_github_button");
     githubButton.addEventListener("click", function() {

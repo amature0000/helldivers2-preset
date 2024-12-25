@@ -189,7 +189,6 @@ function decodeParams(t, d) {
     params[1] = Math.trunc((decodedvalue / 1e2) % 100);
     params[0] = Math.trunc(decodedvalue % 100);
 
-    console.log(params);
     return params;
 }
 // parameter로부터 URL 설정하기
@@ -297,6 +296,31 @@ function down(background, buttonId) {
             window.saveAs(blob, 'download.png');
             document.getElementById('targetImg').removeAttribute("class");
         });
+}
+// ==============================================================================================
+// 랜덤 stratagem 선택 기능
+function randomSelect() {
+    const indices = new Set();
+    const params = {
+        "t": "",
+        0  : 0,
+        1  : 0,
+        2  : 0,
+        3  : 0,
+        "h": 0
+    };
+    
+    while (indices.size < 4) {
+        const randomNum = Math.floor(Math.random() * (imageIndex.length - 1)) + 1;
+        indices.add(randomNum);
+    }
+    var i = 0;
+    for(const index of indices) {
+        params[i++] = index;
+    }
+    
+    setURLFromParams(params);
+    initializeFromURL();
 }
 /*
 const params = {

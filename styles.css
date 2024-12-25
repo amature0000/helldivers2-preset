@@ -120,6 +120,11 @@ img {
     color: white;
 }
 
+.button.yellow {
+    background-color: #fcfe70;
+    color: black;
+}
+
 .button.black {
     background-color: #000000;
     color: white;
@@ -135,6 +140,11 @@ img {
 
 .button.red:hover {
     background-color: #b92929;
+}
+
+.button.yellow:hover {
+    background-color: black;
+    color: #fcfe70;
 }
 
 .button.black:hover {
