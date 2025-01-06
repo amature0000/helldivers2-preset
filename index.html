@@ -45,6 +45,7 @@
     <div id="bump"></div>
     <div id="targetImg">
         <div class="header" id="icon-list-title">
+            <img class="h1_img" id="bug" src="assets/bug.webp" style="display:none;"></img><img class="h1_img" id="bot" src="assets/bot.webp" style="display:none;"></img><img class="h1_img" id="et" src="assets/et.webp" style="display:none;"></img>
             <h1 class="no-margin-vertical no-padding-vertical" id="icon-list-title-h1">로드아웃</h1>
         </div>
         <div class="empty-icon" data-target="a">
@@ -75,14 +76,20 @@
     <hr>
     <div id="group-container-checkbox">
         <input type="text" id="title-input" placeholder="로드아웃 제목을 입력하세요">
-        <input type="checkbox" id="checkbox"> 제목 숨기기
+        <input type="checkbox" id="checkbox"><label for="checkbox">제목 숨기기</label>
     </div>
+    <div id="group-container-buttons">
+        <input type="checkbox" id="checkbox_bug"><label for="checkbox_bug">테르미니드</label>
+        <input type="checkbox" id="checkbox_bot"><label for="checkbox_bot">오토마톤</label>
+        <input type="checkbox" id="checkbox_et"><label for="checkbox_et">일루미닛</label>
+    </div>
+    <br>
     <div id="group-container-buttons">
         <button class="button green" id="save_button">저장</button>
         <button class="button blue" id="download_button_1" onclick="down(true, 'download_button_1')">이미지 복사</button>
         <!--<button class="button blue" id="c" onclick="down(false, 'download_button_2')">다운로드(투명배경)</button>-->
         <button class="button blue" id="copy-link-button">링크 복사</button>
-        <button class="button yellow" id="random_button">랜덤</button>
+        <!--<button class="button yellow" id="random_button">랜덤</button>-->
         <button class="button red" id="hard_rst_button">삭제</button>
         <button class="button black" id="goto_github_button"><img id="github_logo" src="assets/github-mark.svg"></button>
     </div>

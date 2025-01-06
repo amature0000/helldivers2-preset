@@ -1,7 +1,12 @@
 h1 {
-    margin: 5px;
+    display: inline-block;
 }
 .items_margin {
+    margin-left: 5px;
+}
+
+.inline_block {
+    display: inline-block;
     margin: 5px;
 }
 
@@ -34,6 +39,24 @@ img {
     width: 100px;
 }
 
+.h1_img {
+    display: inline-block;
+    vertical-align:sub;
+    background-color: transparent;
+    height: 40px;
+    width: 40px;
+    margin-right:3px;
+}
+
+.h2_img {
+    display: inline-block;
+    vertical-align:sub;
+    background-color: transparent;
+    height: 30px;
+    width: 30px;
+    margin-right:2px;
+}
+
 #targetImg {
     width: 475px;
     height: 165px;
@@ -45,7 +68,8 @@ img {
 
 .header {
     height: 50px;
-    margin: 0;
+    margin:0px;
+    margin-left: 5px;
     padding: 0;
 }
 
@@ -221,6 +245,13 @@ input[type="text"] {
 }
 
 details {
+    user-select: none;
+}
+input[type="checkbox"] {
+    cursor: pointer;
+}
+label {
+    cursor: pointer;
     user-select: none;
 }
 

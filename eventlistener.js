@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 로드아웃 저장 버튼
     const saveButton = document.getElementById('save_button');
     saveButton.addEventListener('click', function () {
-        const params = decodeURLParams();
+        const params = setParamsFromURL();
         addItem(params);
     });
     // 초기화
@@ -145,9 +145,9 @@ document.addEventListener("DOMContentLoaded", function () {
     rstButton.addEventListener('click', function () {
         window.location.href = `${window.location.origin}${window.location.pathname}`;
     });
-    // 초기화
+    // 랜덤
     const rndButton = document.getElementById('random_button');
-    rndButton.addEventListener('click', function () {
+    if(rndButton) rndButton.addEventListener('click', function () {
         randomSelect();
     });
     // github 버튼
@@ -155,9 +155,14 @@ document.addEventListener("DOMContentLoaded", function () {
     githubButton.addEventListener("click", function() {
         window.open("https://github.com/amature0000/helldivers2-preset", "_blank");
     });
-
+    // factions
+    const checkboxIds = ['checkbox_bug', 'checkbox_bot', 'checkbox_et'];
+    const checkboxes = checkboxIds.map(id => document.getElementById(id));
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateURLwithFactions);
+    });
+    
     initializeFromURL();
-    displayItems();
 });
 
 // 다음 선택창으로 넘기기

@@ -33,46 +33,63 @@ function displayItems() {
         const infoDiv = document.createElement('div');
         infoDiv.classList.add('targetImg_style');
         const params = decodeParams(item.t, item.d);
-
+        li.dataset.number = params['f'];
+        // titleDiv
+        const titleDiv = document.createElement('div');
+        titleDiv.setAttribute('class', 'items_margin');
+        // factions
+        const bugImg = document.createElement('img');
+        const botImg = document.createElement('img');
+        const etImg = document.createElement('img');
+        bugImg.setAttribute('class', 'h2_img');
+        bugImg.setAttribute('id', 'bug');
+        bugImg.setAttribute('src', "assets/bug.webp");
+        botImg.setAttribute('class', 'h2_img');
+        botImg.setAttribute('id', 'bot');
+        botImg.setAttribute('src', "assets/bot.webp");
+        etImg.setAttribute('class', 'h2_img');
+        etImg.setAttribute('id', 'et');
+        etImg.setAttribute('src', "assets/et.webp");
+        // title
         const title = document.createElement('h2');
         if (params['t'] == "") params['t'] = "제목 없음";
         title.textContent = `${params['t']}`;
-        title.setAttribute('class', 'items_margin');
-        
+        title.setAttribute('class', 'inline_block');
+        // img1
         const div1 = document.createElement('div');
         div1.setAttribute('class', 'empty-icon_style');
         const img1 = document.createElement('img');
         img1.src = imageIndex[params[0]];
         div1.appendChild(img1);
-
+        // img2
         const div2 = document.createElement('div');
         div2.setAttribute('class', 'empty-icon_style');
         const img2 = document.createElement('img');
         img2.src = imageIndex[params[1]];
         div2.appendChild(img2);
-
+        // img3
         const div3 = document.createElement('div');
         div3.setAttribute('class', 'empty-icon_style');
         const img3 = document.createElement('img');
         img3.src = imageIndex[params[2]];
         div3.appendChild(img3);
-
+        // img4
         const div4 = document.createElement('div');
         div4.setAttribute('class', 'empty-icon_style');
         const img4 = document.createElement('img');
         img4.src = imageIndex[params[3]];
         div4.appendChild(img4);
-
+        // button div
         const buttondiv = document.createElement('div');
         buttondiv.setAttribute('class', 'items_margin');
-
+        // button1
         const deleteButton = document.createElement('button');
         deleteButton.textContent = '삭제';
         deleteButton.setAttribute('class', 'button red itemsButton');
         deleteButton.addEventListener('click', () => {
             deleteItem(item.id);
         });
-
+        // button2
         const copyButton = document.createElement('button');
         copyButton.textContent = '링크 복사';
         copyButton.setAttribute('class', 'button blue itemsButton');
@@ -87,7 +104,13 @@ function displayItems() {
 
         const br = document.createElement('br');
 
-        infoDiv.appendChild(title);
+        var factionsState = params['f'];
+        if(factionsState & 1) titleDiv.appendChild(bugImg);
+        if(factionsState & 2) titleDiv.appendChild(botImg);
+        if(factionsState & 4) titleDiv.appendChild(etImg);
+        titleDiv.appendChild(title);
+
+        infoDiv.appendChild(titleDiv);
         infoDiv.appendChild(div1);
         infoDiv.appendChild(div2);
         infoDiv.appendChild(div3);
@@ -98,11 +121,14 @@ function displayItems() {
         li.appendChild(buttondiv);
         itemList.appendChild(li);
     });
+    // factions 처리
+    const params = setParamsFromURL();
+    processFactions(params['f']);
 }
 // ==============================================================================================
 // URL로부터 상태 불러오기
 function initializeFromURL() {
-    const params = decodeURLParams();
+    const params = setParamsFromURL();
     const emptyIcons = document.querySelectorAll('.empty-icon');
 
     // 각 icon 파라미터 처리
@@ -133,31 +159,89 @@ function initializeFromURL() {
         document.getElementById('bump').style.height = "50px";
         document.getElementById('checkbox').checked = true;
     }
+    // itemlist 처리
+    displayItems();
 }
 // ==============================================================================================
 // 선택 상태를 URL에 업데이트
 function updateURLWithSelection(index, id) {
-    const params = decodeURLParams();
+    const params = setParamsFromURL();
     if (id) params[`${index}`] = id;
     else params[`${index}`] = 0;
     setURLFromParams(params);
 }
 // 제목을 URL에 업데이트
 function updateURLWithTitle(title) {
-    const params = decodeURLParams();
+    const params = setParamsFromURL();
     params['t'] = title;
     setURLFromParams(params);
 }
 // 제목 숨기기 상태를 URL에 업데이트
 function updateURLWithTitleVisibility(isVisible) {
-    const params = decodeURLParams();
+    const params = setParamsFromURL();
     if(isVisible) params['h'] = 0;
     else params['h'] = 1;
     setURLFromParams(params);
 }
+// facions 상태를 URL에 업데이트
+function updateURLwithFactions() {
+    const params = setParamsFromURL();
+    const isBugChecked = document.getElementById('checkbox_bug').checked;
+    const isBotChecked = document.getElementById('checkbox_bot').checked;
+    const isEtChecked = document.getElementById('checkbox_et').checked;
+    var temp = 0;
+    if(isBugChecked) temp += 1;
+    if(isBotChecked) temp += 2;
+    if(isEtChecked) temp += 4;
+    params['f'] = temp;
+    setURLFromParams(params);
+    processFactions(temp);
+}
+// ==============================================================================================
+function processFactions(factionsState) {
+    const bugImg = document.getElementById('bug');
+    const botImg = document.getElementById('bot');
+    const etImg = document.getElementById('et');
+    const isBug = document.getElementById('checkbox_bug');
+    const isBot = document.getElementById('checkbox_bot');
+    const isEt = document.getElementById('checkbox_et');
+    if(factionsState & 1) {
+        bugImg.style.display='';
+        isBug.checked = true;
+    }
+    else {
+        bugImg.style.display='none';
+        isBug.checked = false;
+    }
+    if(factionsState & 2) {
+        botImg.style.display='';
+        isBot.checked = true;
+    }
+    else {
+        botImg.style.display='none';
+        isBot.checked = false;
+    }
+    if(factionsState & 4) {
+        etImg.style.display='';
+        isEt.checked = true;
+    }
+    else {
+        etImg.style.display='none';
+        isEt.checked = false;
+    }
+    filterItemLists(factionsState);
+}
+function filterItemLists(number) {
+    const items = document.getElementById('itemList').querySelectorAll('li');
+    items.forEach(item => {
+        const itemNumber = parseInt(item.dataset.number, 10);
+        if ((itemNumber & number) >= number) item.style.display = '';
+        else item.style.display = 'none';
+    });
+}
 // ==============================================================================================
 // URL로부터 params 생성 후 반환하기
-function decodeURLParams() {
+function setParamsFromURL() {
     const queryString = window.location.search.substring(1);
     const pairs = queryString.split("&");
     let t = "";
@@ -174,16 +258,18 @@ function decodeURLParams() {
 function decodeParams(t, d) {
     const params = {
         "t": "",
-        0  : 0,
-        1  : 0,
-        2  : 0,
+        "f": 0,
+        "h": 0,
         3  : 0,
-        "h": 0
+        2  : 0,
+        1  : 0,
+        0  : 0
     };
     const decodedvalue = base64ToDecimal(d);
 
     params["t"] = t.replaceAll("_", " ");
-    params["h"] = Math.trunc(decodedvalue / 1e8);
+    params["f"] = Math.trunc(decodedvalue / 1e9);
+    params["h"] = Math.trunc((decodedvalue / 1e8) % 10);
     params[3] = Math.trunc((decodedvalue / 1e6) % 100);
     params[2] = Math.trunc((decodedvalue / 1e4) % 100);
     params[1] = Math.trunc((decodedvalue / 1e2) % 100);
@@ -207,7 +293,8 @@ function setURLFromParams(params) {
 }
 // assembles "d"
 function getD(params) {
-    return params["h"] * 1e8 +
+    return params["f"] * 1e9 +
+        params["h"] * 1e8 +
         params[3] * 1e6 +
         params[2] * 1e4 +
         params[1] * 1e2 +
@@ -262,7 +349,7 @@ function showCopySuccess(id) {
 }
 // 링크 복사
 function copyFunct(id) {
-    const params = decodeURLParams();
+    const params = setParamsFromURL();
         const currentURL = setURLFromParams(params);
         navigator.clipboard.writeText(currentURL)
             .then(() => {
