@@ -1,13 +1,66 @@
-h1 {
-    display: inline-block;
+.cursor {
+    cursor: pointer;
 }
-.items_margin {
-    margin-left: 5px;
+
+.noblock {
+    user-select: none;
+}
+
+.nowrap {
+    white-space: nowrap;
 }
 
 .inline_block {
     display: inline-block;
+}
+
+.hide {
+    display: none;
+}
+
+.white-background {
+    background-color: white;
+}
+
+.top_margin {
+    margin-top: 10px;
+}
+
+.left_margin {
+    margin-left: 5px;
+}
+
+.margin {
     margin: 5px;
+}
+
+.no-margin-vertical {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.no-padding-vertical {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.no_padding_margin {
+    margin: 0;
+    padding: 0;
+}
+
+.icon_style {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #000;
+    margin: 5px;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.icon_style.active {
+    border-color: red;
 }
 
 .itemsButton {
@@ -16,21 +69,7 @@ h1 {
 
 .group {
     margin-bottom: 20px;
-    display: inline-block;
     margin-right: 5px;
-    white-space: nowrap;
-}
-
-.icons {
-    display: none;
-}
-
-#icon-list {
-    width: 50%;
-}
-
-.toggle {
-    cursor: pointer;
 }
 
 img {
@@ -39,7 +78,7 @@ img {
     width: 100px;
 }
 
-.h1_img {
+.faction_img {
     display: inline-block;
     vertical-align:sub;
     background-color: transparent;
@@ -48,10 +87,7 @@ img {
     margin-right:3px;
 }
 
-.h2_img {
-    display: inline-block;
-    vertical-align:sub;
-    background-color: transparent;
+.faction_img.small {
     height: 30px;
     width: 30px;
     margin-right:2px;
@@ -62,7 +98,7 @@ img {
     height: 165px;
 }
 
-.targetImg_style {
+.targetImg_width {
     width: 475px;
 }
 
@@ -71,47 +107,6 @@ img {
     margin:0px;
     margin-left: 5px;
     padding: 0;
-}
-
-.empty-icon {
-    width: 100px;
-    height: 100px;
-    border: 2px solid #000;
-    margin: 5px;
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: top;
-    overflow: hidden;
-}
-
-.empty-icon_style {
-    width: 100px;
-    height: 100px;
-    border: 2px solid #000;
-    margin: 5px;
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: top;
-    overflow: hidden;
-}
-
-.empty-icon.active {
-    border-color: red;
-}
-
-#group-container-checkbox {
-    white-space: nowrap;
-    margin-top: 10px;
-}
-
-#group-container-buttons {
-    white-space: nowrap;
-    margin-top: 10px;
-}
-
-#group-container-selections {
-    white-space: nowrap;
-    margin-top: 10px;
 }
 
 .button {
@@ -133,50 +128,54 @@ img {
     background-color: #3498db;
     color: white;
 }
+.button.blue:hover {
+    background-color: #2980b9;
+}
 
 .button.green {
     background-color: #1f9423;
     color: white;
+}
+.button.green:hover {
+    background-color: #195715;
 }
 
 .button.red {
     background-color: #fe7070;
     color: white;
 }
+.button.red:hover {
+    background-color: #b92929;
+}
 
 .button.yellow {
     background-color: #fcfe70;
     color: black;
+}
+.button.yellow:hover {
+    background-color: black;
+    color: #fcfe70;
 }
 
 .button.black {
     background-color: #000000;
     color: white;
 }
-
-.button.blue:hover {
-    background-color: #2980b9;
-}
-
-.button.green:hover {
-    background-color: #195715;
-}
-
-.button.red:hover {
-    background-color: #b92929;
-}
-
-.button.yellow:hover {
-    background-color: black;
-    color: #fcfe70;
-}
-
 .button.black:hover {
     background-color: #a1a1a1;
 }
 
+.button.list {
+    background-color: #888888;
+    color: white;
+    transition: background-color 0.3s;
+}
+.button.list:hover {
+    background-color: #555555;
+}
+
 #goto_github_button {
-    padding: 0; /* 패딩 제거 */
+    padding: 0;
     height: 40px;
     width: 40px;
 }
@@ -187,23 +186,10 @@ img {
     width: auto;
 }
 
-.button.list {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
+summary {
     font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
-    background-color: #888888;
-    color: white;
-    transition: background-color 0.3s;
-}
-
-.button.list:hover {
-    background-color: #555555;
+    user-select: none;
 }
 
 figure {
@@ -217,48 +203,12 @@ figcaption {
     text-align: center;
 }
 
-.white-background {
-    background-color: white;
-}
-
 input[type="text"] {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 210px;
     font-size: 16px;
-}
-
-#bump {
-    margin: 0;
-    padding: 0;
-}
-
-.no-margin-vertical {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.no-padding-vertical {
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-details {
-    user-select: none;
-}
-input[type="checkbox"] {
-    cursor: pointer;
-}
-label {
-    cursor: pointer;
-    user-select: none;
-}
-
-summary {
-    font-weight: bold;
-    cursor: pointer;
-    user-select: none;
 }
 
 #itemList {

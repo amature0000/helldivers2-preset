@@ -31,57 +31,57 @@ function displayItems() {
 
         // 항목 정보 표시
         const infoDiv = document.createElement('div');
-        infoDiv.classList.add('targetImg_style');
+        infoDiv.classList.add('targetImg_width');
         const params = decodeParams(item.t, item.d);
         li.dataset.number = params['f'];
         // titleDiv
         const titleDiv = document.createElement('div');
-        titleDiv.setAttribute('class', 'items_margin');
+        titleDiv.setAttribute('class', 'left_margin');
         // factions
         const bugImg = document.createElement('img');
         const botImg = document.createElement('img');
         const etImg = document.createElement('img');
-        bugImg.setAttribute('class', 'h2_img');
+        bugImg.setAttribute('class', 'faction_img small');
         bugImg.setAttribute('id', 'bug');
         bugImg.setAttribute('src', "assets/bug.webp");
-        botImg.setAttribute('class', 'h2_img');
+        botImg.setAttribute('class', 'faction_img small');
         botImg.setAttribute('id', 'bot');
         botImg.setAttribute('src', "assets/bot.webp");
-        etImg.setAttribute('class', 'h2_img');
+        etImg.setAttribute('class', 'faction_img small');
         etImg.setAttribute('id', 'et');
         etImg.setAttribute('src', "assets/et.webp");
         // title
         const title = document.createElement('h2');
         if (params['t'] == "") params['t'] = "제목 없음";
         title.textContent = `${params['t']}`;
-        title.setAttribute('class', 'inline_block');
+        title.setAttribute('class', 'inline_block margin');
         // img1
         const div1 = document.createElement('div');
-        div1.setAttribute('class', 'empty-icon_style');
+        div1.setAttribute('class', 'icon_style');
         const img1 = document.createElement('img');
         img1.src = imageIndex[params[0]];
         div1.appendChild(img1);
         // img2
         const div2 = document.createElement('div');
-        div2.setAttribute('class', 'empty-icon_style');
+        div2.setAttribute('class', 'icon_style');
         const img2 = document.createElement('img');
         img2.src = imageIndex[params[1]];
         div2.appendChild(img2);
         // img3
         const div3 = document.createElement('div');
-        div3.setAttribute('class', 'empty-icon_style');
+        div3.setAttribute('class', 'icon_style');
         const img3 = document.createElement('img');
         img3.src = imageIndex[params[2]];
         div3.appendChild(img3);
         // img4
         const div4 = document.createElement('div');
-        div4.setAttribute('class', 'empty-icon_style');
+        div4.setAttribute('class', 'icon_style');
         const img4 = document.createElement('img');
         img4.src = imageIndex[params[3]];
         div4.appendChild(img4);
         // button div
         const buttondiv = document.createElement('div');
-        buttondiv.setAttribute('class', 'items_margin');
+        buttondiv.setAttribute('class', 'left_margin');
         // button1
         const deleteButton = document.createElement('button');
         deleteButton.textContent = '삭제';
@@ -235,7 +235,7 @@ function filterItemLists(number) {
     const items = document.getElementById('itemList').querySelectorAll('li');
     items.forEach(item => {
         const itemNumber = parseInt(item.dataset.number, 10);
-        if ((itemNumber & number) >= number) item.style.display = '';
+        if (!((itemNumber & number) ^ number)) item.style.display = '';
         else item.style.display = 'none';
     });
 }
@@ -409,14 +409,3 @@ function randomSelect() {
     setURLFromParams(params);
     initializeFromURL();
 }
-/*
-const params = {
-    "t": "test",
-    0  : 1,
-    1  : 2,
-    2  : 3,
-    3  : 4,
-    "h": 0
-};
-addItem(params);
-*/
