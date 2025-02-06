@@ -73,6 +73,7 @@ const imageMap = [
     {src :"assets/icons/Engineering Bay/Ballistic Shield Backpack.svg", caption : "방패", group: "group5"},
     {src :"assets/icons/Urban Legends/Directional Shield.svg", caption : "에너지방패", group: "group5"},
     {src :"assets/icons/Engineering Bay/Shield Generator Pack.svg", caption : "실드팩", group: "group5"},
+    {src :"assets/icons/Servants of Freedom/Hellbomb Portable.svg", caption : "핵가방", group: "group5"},
 ];
 
 const imageIndex = [
@@ -138,5 +139,6 @@ const imageIndex = [
     "assets/icons/Engineering Bay/Ballistic Shield Backpack.svg",
     "assets/icons/Urban Legends/Directional Shield.svg",
     "assets/icons/Engineering Bay/Shield Generator Pack.svg",
-    "assets/icons/Patriotic Administration Center/StA-X3 W.A.S.P. Launcher.svg"
+    "assets/icons/Patriotic Administration Center/StA-X3 W.A.S.P. Launcher.svg",
+    "assets/icons/Servants of Freedom/Hellbomb Portable.svg"
 ]
