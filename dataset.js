@@ -27,7 +27,7 @@ const imageMap = [
     {src :"assets/icons/Robotics Workshop/EMS Mortar Sentry.svg", caption : "EMS박격포", group: "group3"},
     {src :"assets/icons/Robotics Workshop/Mortar Sentry.svg", caption : "박격포", group: "group3"},
     {src :"assets/icons/Engineering Bay/Anti-Personnel Minefield.svg", caption : "지뢰", group: "group3"},
-    {src :"assets/temp/Gas Mine.svg", caption : "가스지뢰", group: "group3"},
+    {src :"assets/icons/Engineering Bay/Gas Mine.svg", caption : "가스지뢰", group: "group3"},
     {src :"assets/icons/Engineering Bay/Incendiary Mines.svg", caption : "소이지뢰", group: "group3"},
     {src :"assets/icons/Engineering Bay/Anti-Tank Mines.svg", caption : "대전차지뢰", group: "group3"},
     {src :"assets/icons/Robotics Workshop/Gatling Sentry.svg", caption : "개틀링", group: "group3"},
@@ -140,5 +140,5 @@ const imageIndex = [
     "assets/icons/Engineering Bay/Shield Generator Pack.svg",
     "assets/icons/Patriotic Administration Center/StA-X3 W.A.S.P. Launcher.svg",
     "assets/icons/Servants of Freedom/Hellbomb Portable.svg",
-    "assets/temp/Gas Mine.svg"
+    "assets/icons/Engineering Bay/Gas Mine.svg"
 ]
