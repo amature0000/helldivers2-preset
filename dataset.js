@@ -64,15 +64,16 @@ const imageMap = [
     {src :"assets/default.png", caption : "", group: "group5"}, // padding
     {src :"assets/default.png", caption : "", group: "group5"},
     {src :"assets/default.png", caption : "", group: "group5"},
-    {src :"assets/icons/Hangar/Jump Pack.svg", caption : "점프팩", group: "group5"},
+    {src :"assets/icons/Engineering Bay/Supply Pack.svg", caption : "보급팩", group: "group5"},
     {src :"assets/icons/Robotics Workshop/Guard Dog.svg", caption : "가드독", group: "group5"},
     {src :"assets/icons/Engineering Bay/Guard Dog Rover.svg", caption : "가드독:로버", group: "group5"},
     {src :"assets/icons/Chemical Agents/Guard Dog Breath.svg", caption : "가드독:가스", group: "group5"},
-    {src :"assets/icons/Engineering Bay/Supply Pack.svg", caption : "보급팩", group: "group5"},
+    {src :"assets/icons/Servants of Freedom/Hellbomb Portable.svg", caption : "핵가방", group: "group5"},
     {src :"assets/icons/Engineering Bay/Ballistic Shield Backpack.svg", caption : "방패", group: "group5"},
     {src :"assets/icons/Urban Legends/Directional Shield.svg", caption : "에너지방패", group: "group5"},
     {src :"assets/icons/Engineering Bay/Shield Generator Pack.svg", caption : "실드팩", group: "group5"},
-    {src :"assets/icons/Servants of Freedom/Hellbomb Portable.svg", caption : "핵가방", group: "group5"},
+    {src :"assets/icons/Hangar/Jump Pack.svg", caption : "점프팩", group: "group5"},
+    {src :"assets/icons/Borderline Justice/Hover Pack.svg", caption : "호버팩", group: "group5"},
 ];
 
 const imageIndex = [
@@ -140,5 +141,6 @@ const imageIndex = [
     "assets/icons/Engineering Bay/Shield Generator Pack.svg",
     "assets/icons/Patriotic Administration Center/StA-X3 W.A.S.P. Launcher.svg",
     "assets/icons/Servants of Freedom/Hellbomb Portable.svg",
-    "assets/icons/Engineering Bay/Gas Mine.svg"
+    "assets/icons/Engineering Bay/Gas Mine.svg",
+    "assets/icons/Borderline Justice/Hover Pack.svg"
 ]
