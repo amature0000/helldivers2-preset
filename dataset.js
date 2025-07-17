@@ -37,6 +37,7 @@ const imageMap = [
     {src :"assets/icons/Bridge/Shield Generator Relay.svg", caption : "실드릴레이", group: "group3"},
     {src :"assets/icons/Urban Legends/Flame Sentry.svg", caption : "화방", group: "group3"},
     {src :"assets/icons/Bridge/Tesla Tower.svg", caption : "테슬라", group: "group3"},
+    {src :"assets/icons/Control Group/Laser Sentry.svg", caption : "레이저", group: "group3"},
     {src :"assets/icons/Bridge/Grenadier Battlement.svg", caption : "유탄방벽", group: "group3"},
     //==========================================================================================================================
     {src :"assets/icons/Robotics Workshop/Patriot Exosuit.svg", caption : "워커", group: "group4"},
@@ -47,7 +48,7 @@ const imageMap = [
     {src :"assets/icons/Patriotic Administration Center/Machine Gun.svg", caption : "기관총", group: "group4"},
     {src :"assets/icons/Patriotic Administration Center/Heavy Machine Gun.svg", caption : "중기관총", group: "group4"},
     {src :"assets/icons/Engineering Bay/Laser Cannon.svg", caption : "레이저캐넌", group: "group4"},
-    {src :"assets/icons/Patriotic Administration Center/Railgun.svg", caption : "레일건", group: "group4"},
+    {src :"assets/icons/Patriotic Administration Center/Anti-Materiel Rifle.svg", caption : "대물저격", group: "group4"},
     {src :"assets/icons/Patriotic Administration Center/Expendable Anti-Tank.svg", caption : "일회용", group: "group4"},
     {src :"assets/icons/Patriotic Administration Center/Commando.svg", caption : "코만도", group: "group4"},
     {src :"assets/icons/Engineering Bay/Quasar Cannon.svg", caption : "퀘이사", group: "group4"},
@@ -55,8 +56,9 @@ const imageMap = [
     {src :"assets/icons/Patriotic Administration Center/Flamethrower.svg", caption : "화염방사기", group: "group4"},
     {src :"assets/icons/Chemical Agents/Sterilizer.svg", caption : "가스방사기", group: "group4"},
     {src :"assets/icons/Engineering Bay/Arc Thrower.svg", caption : "아크발사기", group: "group4"},
+    {src :"assets/icons/Patriotic Administration Center/Railgun.svg", caption : "레일건", group: "group4"},
+    {src :"assets/icons/Control Group/Epoch.svg", caption : "에포크", group: "group4"},
     {src :"assets/icons/Force of Law/GL-52 De-Escalator.svg", caption : "아크유탄", group: "group4"},
-    {src :"assets/icons/Patriotic Administration Center/Anti-Materiel Rifle.svg", caption : "대물저격", group: "group4"},
     //==========================================================================================================================
     {src :"assets/icons/Patriotic Administration Center/Airburst Rocket Launcher.svg", caption : "공폭발사기", group: "group5"},
     {src :"assets/icons/Patriotic Administration Center/Autocannon.svg", caption : "오토캐넌", group: "group5"},
@@ -77,6 +79,7 @@ const imageMap = [
     {src :"assets/icons/Engineering Bay/Ballistic Shield Backpack.svg", caption : "방패", group: "group5"},
     {src :"assets/icons/Urban Legends/Directional Shield.svg", caption : "에너지방패", group: "group5"},
     {src :"assets/icons/Engineering Bay/Shield Generator Pack.svg", caption : "실드팩", group: "group5"},
+    {src :"assets/icons/Control Group/Warp Pack.svg", caption : "워프팩", group: "group5"},
 ];
 
 const imageIndex = [
@@ -149,5 +152,8 @@ const imageIndex = [
     "assets/icons/Bridge/Grenadier Battlement.svg",
     "assets/icons/Force of Law/GL-52 De-Escalator.svg",
     "assets/icons/Force of Law/Guard Dog K-9.svg",
-    "assets/icons/Masters of Ceremony/One True Flag.svg"
+    "assets/icons/Masters of Ceremony/One True Flag.svg",
+    "assets/icons/Control Group/Epoch.svg",
+    "assets/icons/Control Group/Laser Sentry.svg",
+    "assets/icons/Control Group/Warp Pack.svg",
 ]
