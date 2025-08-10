@@ -268,12 +268,12 @@ function decodeParams(t, d) {
     const decodedvalue = base64ToDecimal(d);
 
     params["t"] = t.replaceAll("_", " ");
-    params["f"] = Math.trunc(decodedvalue / 1e9);
-    params["h"] = Math.trunc((decodedvalue / 1e8) % 10);
-    params[3] = Math.trunc((decodedvalue / 1e6) % 100);
-    params[2] = Math.trunc((decodedvalue / 1e4) % 100);
-    params[1] = Math.trunc((decodedvalue / 1e2) % 100);
-    params[0] = Math.trunc(decodedvalue % 100);
+    params["f"] = Math.trunc(decodedvalue / 1e15);
+    params["h"] = Math.trunc((decodedvalue / 1e12) % 1000);
+    params[3] = Math.trunc((decodedvalue / 1e9) % 1000);
+    params[2] = Math.trunc((decodedvalue / 1e6) % 1000);
+    params[1] = Math.trunc((decodedvalue / 1e3) % 1000);
+    params[0] = Math.trunc(decodedvalue % 1000);
 
     return params;
 }
@@ -293,11 +293,11 @@ function setURLFromParams(params) {
 }
 // assembles "d"
 function getD(params) {
-    return params["f"] * 1e9 +
-        params["h"] * 1e8 +
-        params[3] * 1e6 +
-        params[2] * 1e4 +
-        params[1] * 1e2 +
+    return params["f"] * 1e15 +
+        params["h"] * 1e12 +
+        params[3] * 1e9 +
+        params[2] * 1e6 +
+        params[1] * 1e3 +
         params[0];
 }
 // ==============================================================================================
@@ -383,29 +383,4 @@ function down(background, buttonId) {
             window.saveAs(blob, 'download.png');
             document.getElementById('targetImg').removeAttribute("class");
         });
-}
-// ==============================================================================================
-// 랜덤 stratagem 선택 기능
-function randomSelect() {
-    const indices = new Set();
-    const params = {
-        "t": "",
-        0  : 0,
-        1  : 0,
-        2  : 0,
-        3  : 0,
-        "h": 0
-    };
-    
-    while (indices.size < 4) {
-        const randomNum = Math.floor(Math.random() * (imageIndex.length - 1)) + 1;
-        indices.add(randomNum);
-    }
-    var i = 0;
-    for(const index of indices) {
-        params[i++] = index;
-    }
-    
-    setURLFromParams(params);
-    initializeFromURL();
 }
