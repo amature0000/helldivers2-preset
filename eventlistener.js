@@ -3,49 +3,45 @@ let activeIconIndex = null;
 document.addEventListener("DOMContentLoaded", function () {
     // 테이블 동적 생성
     const groups = {};
-    
+
     imageMap.forEach((item, index) => {
-        index = imageIndex.findIndex(n => n == item.src);
-        console.log(index + " : " + item.caption)
-        const groupName = item.group;
+        let groupName = item.group;
         if (!groupName) return;
         if (!groups[groupName]) {
             groups[groupName] = [];
         }
-        groups[groupName].push({ id: index, ...item });
-    });
-
+        item = item.layout
+        groups[groupName].push(item);
+    })
     Object.keys(groups).forEach(groupName => {
         const groupDiv = document.querySelector(`.group[data-group="${groupName}"] .icons`);
         const table = document.createElement('table');
         const tbody = document.createElement('tbody');
         table.appendChild(tbody);
-        var tr = document.createElement('tr');
+        groups[groupName].forEach(colData => {
+            colData.forEach(rowData => {
+            const tr = document.createElement('tr');
+                rowData.forEach(item => {
+                    const td = document.createElement('td');
+                    const figure = document.createElement('figure');
+                    const img = document.createElement('img');
+                    const figcaption = document.createElement('figcaption');
 
-        groups[groupName].forEach((item, idx) => {
-            // 4개 figure마다 row 생성
-            if (idx % 4 === 0) {
-                tr = document.createElement('tr');
-                tbody.appendChild(tr);
-            }
-            
-            const td = document.createElement('td');
-            const figure = document.createElement("figure");
-            const img = document.createElement("img");
-            const figcaption = document.createElement("figcaption");
-    
-            img.src = item.src;
-            img.dataset.id = item.id;
-            figcaption.textContent = item.caption;
-    
-            figure.appendChild(img);
-            figure.appendChild(figcaption);
-            td.appendChild(figure);
-            tr.appendChild(td);
+                    img.src = item.src;
+                    img.dataset.id = item.id;
+                    figcaption.textContent = item.caption;
+
+                    figure.appendChild(img);
+                    figure.appendChild(figcaption);
+                    td.appendChild(figure);
+                    tr.appendChild(td);
+                })
+            tbody.appendChild(tr);
+            });
         });
+
         groupDiv.appendChild(table);
     });
-    
 
     // 이미지 펼치기 버튼
     const iconList = document.getElementById('icon-list');
@@ -74,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 activeIconIndex = index;
             }
         });
-        icon.addEventListener('contextmenu', function(event) {
+        icon.addEventListener('contextmenu', function (event) {
             event.preventDefault(); // 기본 컨텍스트 메뉴 방지
             icon.innerHTML = '';
             const newImg = document.createElement('img');
@@ -115,8 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const title = document.getElementById("icon-list-title");
     const targetImg = document.getElementById("targetImg");
     const bump = document.getElementById("bump");
-    
-    checkbox.addEventListener('change', function() {
+
+    checkbox.addEventListener('change', function () {
         if (this.checked) {
             title.style.display = 'none';
             targetImg.style.height = '115px';
@@ -147,12 +143,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // 랜덤
     const rndButton = document.getElementById('random_button');
-    if(rndButton) rndButton.addEventListener('click', function () {
+    if (rndButton) rndButton.addEventListener('click', function () {
         randomSelect();
     });
     // github 버튼
     const githubButton = document.getElementById("goto_github_button");
-    githubButton.addEventListener("click", function() {
+    githubButton.addEventListener("click", function () {
         window.open("https://github.com/amature0000/helldivers2-preset", "_blank");
     });
     // factions
@@ -161,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updateURLwithFactions);
     });
-    
+
     initializeFromURL();
 });
 
@@ -172,8 +168,8 @@ function nextactive() {
         icon.classList.remove('active');
     });
     activeIconIndex++;
-    if(activeIconIndex > 3) activeIconIndex = null;
-    if(activeIconIndex !== null && emptyIcons[activeIconIndex]) {
+    if (activeIconIndex > 3) activeIconIndex = null;
+    if (activeIconIndex !== null && emptyIcons[activeIconIndex]) {
         emptyIcons[activeIconIndex].classList.add('active');
     }
 }
