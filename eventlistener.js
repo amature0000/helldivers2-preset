@@ -114,23 +114,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     equipSlot = document.getElementById('armour-slot');
                 }
                 else if (idx == 7) {
-
+                    equipSlot = document.getElementById('primary-slot');
                 }
                 else if (idx == 8) {
-
+                    equipSlot = document.getElementById('secondary-slot');
                 }
                 else if (idx == 9) {
-
+                    equipSlot = document.getElementById('throwable-slot');
                 }
                 equipSlot.innerHTML = '';
                 const newImg = document.createElement('img');
                 newImg.src = imageIndex[selectedId] || imageIndex[0];
                 newImg.setAttribute('data-id', selectedId);
                 equipSlot.appendChild(newImg);
-
-                const params = setParamsFromURL();
-                params['atype'] = selectedId;
-                setURLFromParams(params);
+                updateURLwitharmour(idx, selectedId);
             }
         }
     });

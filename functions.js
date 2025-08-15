@@ -159,6 +159,44 @@ function initializeFromURL() {
         document.getElementById('bump').style.height = "50px";
         document.getElementById('checkbox').checked = true;
     }
+
+    // 무기/갑옷 처리
+    const atype = params['atype'];
+    document.querySelector(`input[name="atype"][value="${atype}"]`).checked = true;
+
+    const armour = params['armour'];
+    const armour_icon = document.getElementById('armour-slot');
+    const img = document.createElement('img');
+    img.src = imageIndex[armour];
+    img.setAttribute('data-id', armour);
+    armour_icon.innerHTML = "";
+    armour_icon.appendChild(img);
+
+    const primary = params['primary'];
+    const primary_icon = document.getElementById('primary-slot');
+    const img2 = document.createElement('img');
+    img2.src = imageIndex[primary];
+    img2.setAttribute('data-id', primary);
+    primary_icon.innerHTML = "";
+    primary_icon.appendChild(img2)
+
+    const secondary = params['secondary'];
+    const secondary_icon = document.getElementById('secondary-slot');
+    const img3 = document.createElement('img');
+    img3.src = imageIndex[secondary];
+    img3.setAttribute('data-id', secondary);
+    secondary_icon.innerHTML = "";
+    secondary_icon.appendChild(img3)
+    
+    const thr = params['throwable'];
+    const thr_icon = document.getElementById('throwable-slot');
+    const img4 = document.createElement('img');
+    img4.src = imageIndex[thr];
+    img4.setAttribute('data-id', thr);
+    thr_icon.innerHTML = "";
+    thr_icon.appendChild(img4)
+
+    processAtype(params['atype']);
     // itemlist 처리
     displayItems();
 }
@@ -201,10 +239,31 @@ function updateURLwithFactions() {
 function updateURLwithAtypes() {
     const params = setParamsFromURL();
     params['atype'] = document.querySelector('input[name="atype"]:checked').value;
-    // TODO: 아이콘 변경
+    setURLFromParams(params);
+    processAtype(params['atype']);
+}
+// 무장 상태를 URL에 업데이트
+function updateURLwitharmour(index, id) {
+    const params = setParamsFromURL();
+    // params['armour'] = document.query
+    console.log(index);
+    console.log(id);
+    if(index == 6) params['armour'] = id;
+    if(index == 7) params['primary'] = id;
+    if(index == 8) params['secondary'] = id;
+    if(index == 9) params['throwable'] = id;
     setURLFromParams(params);
 }
+
 // ==============================================================================================
+function processAtype(index) {
+    var mapping = ['assets/arm_lev/light.png', 'assets/arm_lev/mid.png', 'assets/arm_lev/heavy.png']
+    const armour_icon = document.getElementById('armour-type');
+    const img = document.createElement('img');
+    img.src = mapping[index];
+    armour_icon.innerHTML = "";
+    armour_icon.appendChild(img);
+}
 function processFactions(factionsState) {
     const bugImg = document.getElementById('bug');
     const botImg = document.getElementById('bot');
@@ -270,6 +329,7 @@ function decodeParams(t, d, v) {
         "f": 0,
         "h": 0,
         "atype": 0,
+        "armour": 0,
         "primary": 0,
         "secondary": 0,
         "throwable": 0,
@@ -289,11 +349,11 @@ function decodeParams(t, d, v) {
     params[1] = Math.trunc((decodedvalue / 1e3) % 1000);
     params[0] = Math.trunc(decodedvalue % 1000);
 
-    params["atype"] = Math.trunc((decodedvalue2 / 1e9) % 1000);
+    params["atype"] = Math.trunc((decodedvalue2 / 1e12) % 1000);
+    params["armour"] = Math.trunc((decodedvalue2 / 1e9) % 1000);
     params["primary"] = Math.trunc((decodedvalue2 / 1e6) % 1000);
     params["secondary"] = Math.trunc((decodedvalue2 / 1e3) % 1000);
     params["throwable"] = Math.trunc(decodedvalue2 % 1000);
-    console.log(params);
     return params;
 }
 // parameter로부터 URL 설정하기
@@ -325,7 +385,8 @@ function getD(params) {
 }
 
 function getV(params) {
-    return params["atype"] * 1e9 +
+    return params["atype"] * 1e12 +
+        params["armour"] * 1e9 +
         params["primary"] * 1e6 +
         params["secondary"] * 1e3 +
         params["throwable"];
