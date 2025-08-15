@@ -4,15 +4,25 @@ document.addEventListener("DOMContentLoaded", function () {
     // 테이블 동적 생성
     const groups = {};
 
-    imageMap.forEach((item, index) => {
-        let groupName = item.group;
-        if (!groupName) return;
+    imageMap.forEach(groupEntry => {
+        let groupName = groupEntry.group;
         if (!groups[groupName]) {
             groups[groupName] = [];
         }
-        item = item.layout
-        groups[groupName].push(item);
+
+        const processedLayout = groupEntry.layout.map(row =>
+            row.map(cell => {
+                if (!cell.src) return cell;
+                const id = imageIndex.findIndex(n => n === cell.src);
+                return { id, ...cell };
+            })
+        );
+
+        groups[groupName].push(processedLayout);
     })
+
+    console.log(groups)
+
     Object.keys(groups).forEach(groupName => {
         const groupDiv = document.querySelector(`.group[data-group="${groupName}"] .icons`);
         const table = document.createElement('table');
@@ -20,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         table.appendChild(tbody);
         groups[groupName].forEach(colData => {
             colData.forEach(rowData => {
-            const tr = document.createElement('tr');
+                const tr = document.createElement('tr');
                 rowData.forEach(item => {
                     const td = document.createElement('td');
                     const figure = document.createElement('figure');
@@ -36,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     td.appendChild(figure);
                     tr.appendChild(td);
                 })
-            tbody.appendChild(tr);
+                tbody.appendChild(tr);
             });
         });
 
@@ -81,12 +91,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 이미지 선택 시 URL 업데이트 및 이미지 배치
     iconList.addEventListener('click', function (event) {
-        if (activeIconIndex !== null) {
-            const targetIcon = event.target;
-            if (targetIcon.tagName === 'IMG') {
-                const selectedId = parseInt(targetIcon.getAttribute('data-id'), 10);
+        if (event.target.tagName === 'IMG') {
+            const selectedId = parseInt(event.target.getAttribute('data-id'), 10);
+            const activeGroup = iconList.dataset.activeGroup;
+            let idx = parseInt(activeGroup.replace('group', ''), 10);
+            if (!activeGroup.startsWith('group')) return;
+            // group-container-selections
+            if (activeIconIndex !== null && idx <= 5) {
                 emptyIcons[activeIconIndex].innerHTML = '';
                 const newImg = document.createElement('img');
                 newImg.src = imageIndex[selectedId] || imageIndex[0];
@@ -94,6 +106,31 @@ document.addEventListener("DOMContentLoaded", function () {
                 emptyIcons[activeIconIndex].appendChild(newImg);
                 updateURLWithSelection(activeIconIndex, selectedId);
                 nextactive();
+            }
+            // group-container-selections-2
+            else {
+                let equipSlot;
+                if (idx == 6) {
+                    equipSlot = document.getElementById('armour-slot');
+                }
+                else if (idx == 7) {
+
+                }
+                else if (idx == 8) {
+
+                }
+                else if (idx == 9) {
+
+                }
+                equipSlot.innerHTML = '';
+                const newImg = document.createElement('img');
+                newImg.src = imageIndex[selectedId] || imageIndex[0];
+                newImg.setAttribute('data-id', selectedId);
+                equipSlot.appendChild(newImg);
+
+                const params = setParamsFromURL();
+                params['atype'] = selectedId;
+                setURLFromParams(params);
             }
         }
     });
@@ -115,11 +152,11 @@ document.addEventListener("DOMContentLoaded", function () {
     checkbox.addEventListener('change', function () {
         if (this.checked) {
             title.style.display = 'none';
-            targetImg.style.height = '115px';
+            targetImg.style.height = '225px';
             bump.style.height = "50px";
         } else {
             title.style.display = 'block';
-            targetImg.style.height = '165px';
+            targetImg.style.height = '275px';
             bump.style.height = "0";
         }
         updateURLWithTitleVisibility(!this.checked);
@@ -156,6 +193,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const checkboxes = checkboxIds.map(id => document.getElementById(id));
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updateURLwithFactions);
+    });
+    // radiobuttons
+    const radioIds = ['light', 'mid', 'heavy'];
+    const radios = radioIds.map(id => document.getElementById(id));
+    radios.forEach(checkbox => {
+        checkbox.addEventListener('change', updateURLwithAtypes);
     });
 
     initializeFromURL();

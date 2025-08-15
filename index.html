@@ -21,10 +21,10 @@
     <script src="functions.js"></script>
     <script>
         // 모바일 적응형 뷰포트
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const meta = document.createElement('meta');
             meta.name = "viewport";
-            
+
             var targetWidth = 560;
             var deviceWidth = window.screen.width || window.innerWidth || document.documentElement.clientWidth;
             var scale = deviceWidth / targetWidth;
@@ -45,7 +45,9 @@
     <div id="bump" class="no_margin_padding"></div>
     <div id="targetImg">
         <div class="header" id="icon-list-title">
-            <img class="faction_img" id="bug" src="assets/bug.webp" style="display:none;"></img><img class="faction_img" id="bot" src="assets/bot.webp" style="display:none;"></img><img class="faction_img" id="et" src="assets/et.webp" style="display:none;"></img>
+            <img class="faction_img" id="bug" src="assets/bug.webp" style="display:none;"></img><img class="faction_img"
+                id="bot" src="assets/bot.webp" style="display:none;"></img><img class="faction_img" id="et"
+                src="assets/et.webp" style="display:none;"></img>
             <h1 class="no-margin-vertical no-padding-vertical inline_block" id="icon-list-title-h1">로드아웃</h1>
         </div>
         <div class="empty-icon icon_style cursor" data-target="a">
@@ -60,9 +62,24 @@
         <div class="empty-icon icon_style cursor" data-target="d">
             <img src="assets/default.png" data-id="default">
         </div>
+        <div id="armour-type" class="icon_style-small cursor">
+            <img src="assets/default.png" data-id="default">
+        </div>
+        <div id="armour-slot" class="icon_style-small cursor">
+            <img src="assets/default.png" data-id="default">
+        </div>
+        <div id="primary-slot" class="icon_style-small cursor">
+            <img src="assets/default.png" data-id="default">
+        </div>
+        <div id="secondary-slot" class="icon_style-small cursor">
+            <img src="assets/default.png" data-id="default">
+        </div>
+        <div id="throwable-slot" class="icon_style-small cursor">
+            <img src="assets/default.png" data-id="default">
+        </div>
     </div>
     <hr>
-    <details class="noblock">
+    <!-- <details class="noblock">
         <summary>도움말</summary>
         <ul>
             <li>
@@ -73,25 +90,37 @@
                 이미지 다운로드 시 자동으로 클립보드에 이미지가 복사되어 다른 곳에 붙여넣을 수 있습니다.
             </li>
         </ul>
-    </details>
+    </details> -->
     <div id="group-container-checkbox" class="top_margin nowrap">
         <input type="text" id="title-input" placeholder="로드아웃 제목을 입력하세요">
         <label for="checkbox" class="cursor noblock"><input type="checkbox" id="checkbox" class="cursor">제목 숨기기</label>
     </div>
     <div id="group-container-buttons" class="top_margin nowrap">
-        <label for="checkbox_bug" class="cursor noblock"><input type="checkbox" id="checkbox_bug" class="cursor">테르미니드</label>
-        <label for="checkbox_bot" class="cursor noblock"><input type="checkbox" id="checkbox_bot" class="cursor">오토마톤</label>
-        <label for="checkbox_et" class="cursor noblock"><input type="checkbox" id="checkbox_et" class="cursor">일루미닛</label>
+        <label for="checkbox_bug" class="cursor noblock"><input type="checkbox" id="checkbox_bug"
+                class="cursor">테르미니드</label>
+        <label for="checkbox_bot" class="cursor noblock"><input type="checkbox" id="checkbox_bot"
+                class="cursor">오토마톤</label>
+        <label for="checkbox_et" class="cursor noblock"><input type="checkbox" id="checkbox_et"
+                class="cursor">일루미닛</label>
+    </div>
+    <div id="group-radio-buttons" class="top_margin nowrap">
+        <label for="light" class="cursor noblock"><input type="radio" id="light" name="atype" value="0"
+                class="cursor">경갑</label>
+        <label for="mid" class="cursor noblock"><input type="radio" id="mid" name="atype" value="1"
+                class="cursor">일반갑</label>
+        <label for="heavy" class="cursor noblock"><input type="radio" id="heavy" name="atype" value="2"
+                class="cursor">중갑</label>
     </div>
     <br>
     <div id="group-container-buttons" class="top_margin nowrap">
         <button class="button green" id="save_button">저장</button>
-        <button class="button blue" id="download_button_1" onclick="down(true, 'download_button_1')">이미지 복사</button>
+        <button class="button blue" id="download_button_1" onclick="down(true, 'download_button_1')">이미지 가져오기</button>
         <!--<button class="button blue" id="c" onclick="down(false, 'download_button_2')">다운로드(투명배경)</button>-->
-        <button class="button blue" id="copy-link-button">링크 복사</button>
+        <button class="button blue" id="copy-link-button">링크 가져오기</button>
         <!--<button class="button yellow" id="random_button">랜덤</button>-->
         <button class="button red" id="hard_rst_button">초기화</button>
-        <button class="button black" id="goto_github_button"><img id="github_logo" src="assets/github-mark.svg"></button>
+        <button class="button black" id="goto_github_button"><img id="github_logo"
+                src="assets/github-mark.svg"></button>
     </div>
 
     <div id="group-container-selections" class="top_margin nowrap">
@@ -115,7 +144,7 @@
 
         <div class="group nowrap inline_block" data-group="group4">
             <button class="button list toggle cursor">보급</button>
-            <div class="icons hide">      
+            <div class="icons hide">
             </div>
         </div>
 
@@ -126,7 +155,7 @@
         </div>
     </div>
 
-    <div id="group-container-selections-2" class="top_margin nowrap">
+    <div id="group-container-selections-2" class="nowrap">
         <div class="group nowrap inline_block" data-group="group6">
             <button class="button list toggle cursor">갑옷</button>
             <div class="icons hide">
@@ -147,7 +176,7 @@
 
         <div class="group nowrap inline_block" data-group="group9">
             <button class="button list toggle cursor">투척무기</button>
-            <div class="icons hide">      
+            <div class="icons hide">
             </div>
         </div>
     </div>
@@ -156,7 +185,7 @@
     </div>
     <hr>
     <h1>저장된 로드아웃</h1>
-    <details class="noblock">
+    <!-- <details class="noblock">
         <summary>도움말</summary>
         <ul>
             <li>
@@ -167,7 +196,7 @@
                 로드아웃 리스트는 해당 기기에 저장됩니다. 다른 기기에서 열람할 수 없습니다.
             </li>
         </ul>
-    </details>
+    </details> -->
     <ul id="itemList"></ul>
     <script src="eventlistener.js"></script>
 </body>

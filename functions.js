@@ -32,7 +32,7 @@ function displayItems() {
         // 항목 정보 표시
         const infoDiv = document.createElement('div');
         infoDiv.classList.add('targetImg_width');
-        const params = decodeParams(item.t, item.d);
+        const params = decodeParams(item.t, item.d, item.v);
         li.dataset.number = params['f'];
         // titleDiv
         const titleDiv = document.createElement('div');
@@ -197,6 +197,13 @@ function updateURLwithFactions() {
     setURLFromParams(params);
     processFactions(temp);
 }
+// atype 상태를 URL에 업데이트
+function updateURLwithAtypes() {
+    const params = setParamsFromURL();
+    params['atype'] = document.querySelector('input[name="atype"]:checked').value;
+    // TODO: 아이콘 변경
+    setURLFromParams(params);
+}
 // ==============================================================================================
 function processFactions(factionsState) {
     const bugImg = document.getElementById('bug');
@@ -246,26 +253,33 @@ function setParamsFromURL() {
     const pairs = queryString.split("&");
     let t = "";
     let d = "";
+    let v = "";
     
     pairs.forEach(function(pair) {
         const [key, value] = pair.split("=");
         if (key === "t") t = decodeURIComponent(value);
         else if (key === "d") d = decodeURIComponent(value);
+        else if (key === "v") v = decodeURIComponent(value);
     });
-    return decodeParams(t, d);
+    return decodeParams(t, d, v);
 }
 // encoded parameter로부터 params 생성 후 반환하기
-function decodeParams(t, d) {
+function decodeParams(t, d, v) {
     const params = {
         "t": "",
         "f": 0,
         "h": 0,
+        "atype": 0,
+        "primary": 0,
+        "secondary": 0,
+        "throwable": 0,
         3  : 0,
         2  : 0,
         1  : 0,
         0  : 0
     };
     const decodedvalue = base64ToDecimal(d);
+    const decodedvalue2 = base64ToDecimal(v);
 
     params["t"] = t.replaceAll("_", " ");
     params["f"] = Math.trunc(decodedvalue / 1e15);
@@ -275,6 +289,11 @@ function decodeParams(t, d) {
     params[1] = Math.trunc((decodedvalue / 1e3) % 1000);
     params[0] = Math.trunc(decodedvalue % 1000);
 
+    params["atype"] = Math.trunc((decodedvalue2 / 1e9) % 1000);
+    params["primary"] = Math.trunc((decodedvalue2 / 1e6) % 1000);
+    params["secondary"] = Math.trunc((decodedvalue2 / 1e3) % 1000);
+    params["throwable"] = Math.trunc(decodedvalue2 % 1000);
+    console.log(params);
     return params;
 }
 // parameter로부터 URL 설정하기
@@ -284,7 +303,11 @@ function setURLFromParams(params) {
     const d = getD(params);
     const encodingD = decimalToBase64(d);
 
+    const v = getV(params);
+    const encodingV = decimalToBase64(v)
+
     queryString.push(`d=${encodingD}`);
+    queryString.push(`v=${encodingV}`);
     queryString.push(`t=${params['t'].replaceAll(" ", "_")}`);
 
     const newURL = `${window.location.origin}${window.location.pathname}?${queryString.join("&")}`;
@@ -299,6 +322,13 @@ function getD(params) {
         params[2] * 1e6 +
         params[1] * 1e3 +
         params[0];
+}
+
+function getV(params) {
+    return params["atype"] * 1e9 +
+        params["primary"] * 1e6 +
+        params["secondary"] * 1e3 +
+        params["throwable"];
 }
 // ==============================================================================================
 // 64-bit encoding
@@ -337,8 +367,8 @@ function showCopySuccess(id) {
     // 버튼 텍스트 변경
     let originalText = ""
     if(id=="download_button_2") originalText = "다운로드(투명배경)";
-    else if(id=="download_button_1") originalText = "다운로드";
-    else originalText = "링크 복사";
+    else if(id=="download_button_1") originalText = "이미지 가져오기";
+    else originalText = "링크 가져오기";
     
     copyButton.textContent = '클립보드에 복사 완료!';
     

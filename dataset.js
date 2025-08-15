@@ -150,35 +150,46 @@ const imageMap = [
         group: "group6",
         layout: [
             [
-    { src: "assets/armor/armor1.png", name: "강화 갑옷", caption: "방어력 상승"},
-    { src: "assets/armor/armor2.png", name: "경량 갑옷", caption: "이동속도 상승"},
-            ]
-        ]
-    },    
-    //==========================================================================================================================
-    {
-        group: "group7",
-        layout: [
-            [{ src: "assets/weapons/main1.png", name: "돌격소총", caption: "균형 잡힌 주무기"},
-            ]
-        ]
-    },
-    //==========================================================================================================================
-    {
-        group: "group8",
-        layout: [
-            [{ src: "assets/weapons/sub1.png", name: "권총", caption: "기본 보조무기"},
+                { src: "assets/arm_passive/Adreno-Defibrillator_Armor_Passive_Icon.webp", caption: "부활갑", name: "사망 시 부활, 각성제 지속시간 +2, 아크 저항 +50%" },
+                { src: "assets/arm_passive/Advanced_Filtration_Armor_Passive_Icon.webp", caption: "가스갑", name: "가스 저항 +80%" },
+                { src: "assets/arm_passive/Ballistic_Padding_Armor_Passive_Icon.webp", caption: "탄도갑", name: "흉부 저항 +25%, 폭발 저항 +25%, 흉부 출혈 방지" },
+                { src: "assets/arm_passive/Democracy_Protects_Armor_Passive_Icon.webp", caption: "민주갑", name: "50% 확률로 사망 방지, 흉부 출혈 방지" },
+            ],
+            [
+                { src: "assets/arm_passive/Electrical_Conduit_Armor_Passive_Icon.webp", caption: "아크갑", name: "아크 저항 +95%" },
+                { src: "assets/arm_passive/Engineering_Kit_Armor_Passive_Icon.webp", caption: "공병갑", name: "앉은 상태에서 반동 저항 +30%, 투척 무기 +2" },
+                { src: "assets/arm_passive/Extra_Padding_Armor_Passive_Icon.webp", caption: "완충갑", name: "장갑 등급 +1" },
+                { src: "assets/arm_passive/Fortified_Armor_Passive_Icon.webp", caption: "폭저갑", name: "앉은 상태에서 반동 저항 +30%, 폭발 저항 +50%" },
+            ],
+            [
+                { src: "assets/arm_passive/Gunslinger_Armor_Passive_Icon.webp", caption: "총잡이", name: "보조 무기 재장전/드로우/반동 버프" },
             ]
         ]
     },
     //==========================================================================================================================
-    {
-        group: "group9",
-        layout: [
-            [{ src: "assets/weapons/grenade.png", name: "수류탄", caption: "범위 공격"}
-            ]
-        ]
-    },
+    // {
+    //     group: "group7",
+    //     layout: [
+    //         [{ src: "assets/weapons/main1.png", name: "돌격소총", caption: "균형 잡힌 주무기" },
+    //         ]
+    //     ]
+    // },
+    // //==========================================================================================================================
+    // {
+    //     group: "group8",
+    //     layout: [
+    //         [{ src: "assets/weapons/sub1.png", name: "권총", caption: "기본 보조무기" },
+    //         ]
+    //     ]
+    // },
+    // //==========================================================================================================================
+    // {
+    //     group: "group9",
+    //     layout: [
+    //         [{ src: "assets/weapons/grenade.png", name: "수류탄", caption: "범위 공격" }
+    //         ]
+    //     ]
+    // },
 ];
 
 const imageIndex = [
@@ -255,4 +266,13 @@ const imageIndex = [
     "assets/icons/Control Group/Epoch.svg",
     "assets/icons/Control Group/Laser Sentry.svg",
     "assets/icons/Control Group/Warp Pack.svg",
+    "assets/arm_passive/Adreno-Defibrillator_Armor_Passive_Icon.webp",
+    "assets/arm_passive/Advanced_Filtration_Armor_Passive_Icon.webp",
+    "assets/arm_passive/Ballistic_Padding_Armor_Passive_Icon.webp",
+    "assets/arm_passive/Democracy_Protects_Armor_Passive_Icon.webp",
+    "assets/arm_passive/Electrical_Conduit_Armor_Passive_Icon.webp",
+    "assets/arm_passive/Engineering_Kit_Armor_Passive_Icon.webp",
+    "assets/arm_passive/Extra_Padding_Armor_Passive_Icon.webp",
+    "assets/arm_passive/Fortified_Armor_Passive_Icon.webp",
+    "assets/arm_passive/Gunslinger_Armor_Passive_Icon.webp",
 ]
