@@ -7,8 +7,10 @@ function addItem(params) {
     const items = getList();
     const title = params['t']
     const data = getD(params);
+    const vata = getV(params);
     const encodingD = decimalToBase64(data);
-    const newItem = {id: Date.now(), t: title, d: encodingD};
+    const encodingV = decimalToBase64(vata)
+    const newItem = {id: Date.now(), t: title, d: encodingD, v: encodingV};
 
     items.push(newItem);
     localStorage.setItem('items', JSON.stringify(items));
@@ -28,7 +30,7 @@ function displayItems() {
     itemList.innerHTML = '';
     items.forEach((item) => {
         const li = document.createElement('li');
-
+        
         // 항목 정보 표시
         const infoDiv = document.createElement('div');
         infoDiv.classList.add('targetImg_width');
@@ -79,6 +81,37 @@ function displayItems() {
         const img4 = document.createElement('img');
         img4.src = imageIndex[params[3]];
         div4.appendChild(img4);
+        // atype
+        const div5 = document.createElement('div');
+        div5.setAttribute('class', 'icon_style-small')
+        const img5 = document.createElement('img');
+        var mapping = ['assets/arm_lev/light.png', 'assets/arm_lev/mid.png', 'assets/arm_lev/heavy.png']
+        img5.src = mapping[params['atype']];
+        div5.append(img5);
+        // arm_passive
+        const div6 = document.createElement('div');
+        div6.setAttribute('class', 'icon_style-small')
+        const img6 = document.createElement('img');
+        img6.src = imageIndex[params['armour']];
+        div6.append(img6);
+        // primary
+        const div7 = document.createElement('div');
+        div7.setAttribute('class', 'icon_style-small')
+        const img7 = document.createElement('img');
+        img7.src = imageIndex[params['primary']];
+        div7.append(img7);
+        // secondary
+        const div8 = document.createElement('div');
+        div8.setAttribute('class', 'icon_style-small')
+        const img8 = document.createElement('img');
+        img8.src = imageIndex[params['secondary']];
+        div8.append(img8);
+        // throwable
+        const div9 = document.createElement('div');
+        div9.setAttribute('class', 'icon_style-small')
+        const img9 = document.createElement('img');
+        img9.src = imageIndex[params['throwable']];
+        div9.append(img9);
         // button div
         const buttondiv = document.createElement('div');
         buttondiv.setAttribute('class', 'left_margin');
@@ -115,6 +148,11 @@ function displayItems() {
         infoDiv.appendChild(div2);
         infoDiv.appendChild(div3);
         infoDiv.appendChild(div4);
+        infoDiv.appendChild(div5);
+        infoDiv.appendChild(div6);
+        infoDiv.appendChild(div7);
+        infoDiv.appendChild(div8);
+        infoDiv.appendChild(div9);
         infoDiv.appendChild(br);
 
         li.appendChild(infoDiv);
