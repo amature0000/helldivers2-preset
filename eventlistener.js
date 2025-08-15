@@ -3,49 +3,55 @@ let activeIconIndex = null;
 document.addEventListener("DOMContentLoaded", function () {
     // 테이블 동적 생성
     const groups = {};
-    
-    imageMap.forEach((item, index) => {
-        index = imageIndex.findIndex(n => n == item.src);
-        console.log(index + " : " + item.caption)
-        const groupName = item.group;
-        if (!groupName) return;
+
+    imageMap.forEach(groupEntry => {
+        let groupName = groupEntry.group;
         if (!groups[groupName]) {
             groups[groupName] = [];
         }
-        groups[groupName].push({ id: index, ...item });
-    });
+
+        const processedLayout = groupEntry.layout.map(row =>
+            row.map(cell => {
+                if (!cell.src) return cell;
+                const id = imageIndex.findIndex(n => n === cell.src);
+                return { id, ...cell };
+            })
+        );
+
+        groups[groupName].push(processedLayout);
+    })
+
+    console.log(groups)
 
     Object.keys(groups).forEach(groupName => {
         const groupDiv = document.querySelector(`.group[data-group="${groupName}"] .icons`);
         const table = document.createElement('table');
         const tbody = document.createElement('tbody');
         table.appendChild(tbody);
-        var tr = document.createElement('tr');
+        groups[groupName].forEach(colData => {
+            colData.forEach(rowData => {
+                const tr = document.createElement('tr');
+                rowData.forEach(item => {
+                    const td = document.createElement('td');
+                    const figure = document.createElement('figure');
+                    const img = document.createElement('img');
+                    const figcaption = document.createElement('figcaption');
 
-        groups[groupName].forEach((item, idx) => {
-            // 4개 figure마다 row 생성
-            if (idx % 4 === 0) {
-                tr = document.createElement('tr');
+                    img.src = item.src;
+                    img.dataset.id = item.id;
+                    figcaption.textContent = item.caption;
+
+                    figure.appendChild(img);
+                    figure.appendChild(figcaption);
+                    td.appendChild(figure);
+                    tr.appendChild(td);
+                })
                 tbody.appendChild(tr);
-            }
-            
-            const td = document.createElement('td');
-            const figure = document.createElement("figure");
-            const img = document.createElement("img");
-            const figcaption = document.createElement("figcaption");
-    
-            img.src = item.src;
-            img.dataset.id = item.id;
-            figcaption.textContent = item.caption;
-    
-            figure.appendChild(img);
-            figure.appendChild(figcaption);
-            td.appendChild(figure);
-            tr.appendChild(td);
+            });
         });
+
         groupDiv.appendChild(table);
     });
-    
 
     // 이미지 펼치기 버튼
     const iconList = document.getElementById('icon-list');
@@ -74,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 activeIconIndex = index;
             }
         });
-        icon.addEventListener('contextmenu', function(event) {
+        icon.addEventListener('contextmenu', function (event) {
             event.preventDefault(); // 기본 컨텍스트 메뉴 방지
             icon.innerHTML = '';
             const newImg = document.createElement('img');
@@ -85,12 +91,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 이미지 선택 시 URL 업데이트 및 이미지 배치
     iconList.addEventListener('click', function (event) {
-        if (activeIconIndex !== null) {
-            const targetIcon = event.target;
-            if (targetIcon.tagName === 'IMG') {
-                const selectedId = parseInt(targetIcon.getAttribute('data-id'), 10);
+        if (event.target.tagName === 'IMG') {
+            const selectedId = parseInt(event.target.getAttribute('data-id'), 10);
+            const activeGroup = iconList.dataset.activeGroup;
+            let idx = parseInt(activeGroup.replace('group', ''), 10);
+            if (!activeGroup.startsWith('group')) return;
+            // group-container-selections
+            if (activeIconIndex !== null && idx <= 5) {
                 emptyIcons[activeIconIndex].innerHTML = '';
                 const newImg = document.createElement('img');
                 newImg.src = imageIndex[selectedId] || imageIndex[0];
@@ -98,6 +106,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 emptyIcons[activeIconIndex].appendChild(newImg);
                 updateURLWithSelection(activeIconIndex, selectedId);
                 nextactive();
+            }
+            // group-container-selections-2
+            else {
+                let equipSlot;
+                if (idx == 6) {
+                    equipSlot = document.getElementById('armour-slot');
+                }
+                else if (idx == 7) {
+                    equipSlot = document.getElementById('primary-slot');
+                }
+                else if (idx == 8) {
+                    equipSlot = document.getElementById('secondary-slot');
+                }
+                else if (idx == 9) {
+                    equipSlot = document.getElementById('throwable-slot');
+                }
+                equipSlot.innerHTML = '';
+                const newImg = document.createElement('img');
+                newImg.src = imageIndex[selectedId] || imageIndex[0];
+                newImg.setAttribute('data-id', selectedId);
+                equipSlot.appendChild(newImg);
+                updateURLwitharmour(idx, selectedId);
             }
         }
     });
@@ -115,15 +145,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const title = document.getElementById("icon-list-title");
     const targetImg = document.getElementById("targetImg");
     const bump = document.getElementById("bump");
-    
-    checkbox.addEventListener('change', function() {
+
+    checkbox.addEventListener('change', function () {
         if (this.checked) {
             title.style.display = 'none';
-            targetImg.style.height = '115px';
+            targetImg.style.height = '225px';
             bump.style.height = "50px";
         } else {
             title.style.display = 'block';
-            targetImg.style.height = '165px';
+            targetImg.style.height = '275px';
             bump.style.height = "0";
         }
         updateURLWithTitleVisibility(!this.checked);
@@ -147,12 +177,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // 랜덤
     const rndButton = document.getElementById('random_button');
-    if(rndButton) rndButton.addEventListener('click', function () {
+    if (rndButton) rndButton.addEventListener('click', function () {
         randomSelect();
     });
     // github 버튼
     const githubButton = document.getElementById("goto_github_button");
-    githubButton.addEventListener("click", function() {
+    githubButton.addEventListener("click", function () {
         window.open("https://github.com/amature0000/helldivers2-preset", "_blank");
     });
     // factions
@@ -161,7 +191,13 @@ document.addEventListener("DOMContentLoaded", function () {
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updateURLwithFactions);
     });
-    
+    // radiobuttons
+    const radioIds = ['light', 'mid', 'heavy'];
+    const radios = radioIds.map(id => document.getElementById(id));
+    radios.forEach(checkbox => {
+        checkbox.addEventListener('change', updateURLwithAtypes);
+    });
+
     initializeFromURL();
 });
 
@@ -172,8 +208,8 @@ function nextactive() {
         icon.classList.remove('active');
     });
     activeIconIndex++;
-    if(activeIconIndex > 3) activeIconIndex = null;
-    if(activeIconIndex !== null && emptyIcons[activeIconIndex]) {
+    if (activeIconIndex > 3) activeIconIndex = null;
+    if (activeIconIndex !== null && emptyIcons[activeIconIndex]) {
         emptyIcons[activeIconIndex].classList.add('active');
     }
 }

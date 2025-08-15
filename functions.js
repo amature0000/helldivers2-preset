@@ -7,8 +7,10 @@ function addItem(params) {
     const items = getList();
     const title = params['t']
     const data = getD(params);
+    const vata = getV(params);
     const encodingD = decimalToBase64(data);
-    const newItem = {id: Date.now(), t: title, d: encodingD};
+    const encodingV = decimalToBase64(vata)
+    const newItem = {id: Date.now(), t: title, d: encodingD, v: encodingV};
 
     items.push(newItem);
     localStorage.setItem('items', JSON.stringify(items));
@@ -28,11 +30,11 @@ function displayItems() {
     itemList.innerHTML = '';
     items.forEach((item) => {
         const li = document.createElement('li');
-
+        
         // 항목 정보 표시
         const infoDiv = document.createElement('div');
         infoDiv.classList.add('targetImg_width');
-        const params = decodeParams(item.t, item.d);
+        const params = decodeParams(item.t, item.d, item.v);
         li.dataset.number = params['f'];
         // titleDiv
         const titleDiv = document.createElement('div');
@@ -79,6 +81,37 @@ function displayItems() {
         const img4 = document.createElement('img');
         img4.src = imageIndex[params[3]];
         div4.appendChild(img4);
+        // atype
+        const div5 = document.createElement('div');
+        div5.setAttribute('class', 'icon_style-small')
+        const img5 = document.createElement('img');
+        var mapping = ['assets/arm_lev/light.png', 'assets/arm_lev/mid.png', 'assets/arm_lev/heavy.png']
+        img5.src = mapping[params['atype']];
+        div5.append(img5);
+        // arm_passive
+        const div6 = document.createElement('div');
+        div6.setAttribute('class', 'icon_style-small')
+        const img6 = document.createElement('img');
+        img6.src = imageIndex[params['armour']];
+        div6.append(img6);
+        // primary
+        const div7 = document.createElement('div');
+        div7.setAttribute('class', 'icon_style-small')
+        const img7 = document.createElement('img');
+        img7.src = imageIndex[params['primary']];
+        div7.append(img7);
+        // secondary
+        const div8 = document.createElement('div');
+        div8.setAttribute('class', 'icon_style-small')
+        const img8 = document.createElement('img');
+        img8.src = imageIndex[params['secondary']];
+        div8.append(img8);
+        // throwable
+        const div9 = document.createElement('div');
+        div9.setAttribute('class', 'icon_style-small')
+        const img9 = document.createElement('img');
+        img9.src = imageIndex[params['throwable']];
+        div9.append(img9);
         // button div
         const buttondiv = document.createElement('div');
         buttondiv.setAttribute('class', 'left_margin');
@@ -115,6 +148,11 @@ function displayItems() {
         infoDiv.appendChild(div2);
         infoDiv.appendChild(div3);
         infoDiv.appendChild(div4);
+        infoDiv.appendChild(div5);
+        infoDiv.appendChild(div6);
+        infoDiv.appendChild(div7);
+        infoDiv.appendChild(div8);
+        infoDiv.appendChild(div9);
         infoDiv.appendChild(br);
 
         li.appendChild(infoDiv);
@@ -159,6 +197,44 @@ function initializeFromURL() {
         document.getElementById('bump').style.height = "50px";
         document.getElementById('checkbox').checked = true;
     }
+
+    // 무기/갑옷 처리
+    const atype = params['atype'];
+    document.querySelector(`input[name="atype"][value="${atype}"]`).checked = true;
+
+    const armour = params['armour'];
+    const armour_icon = document.getElementById('armour-slot');
+    const img = document.createElement('img');
+    img.src = imageIndex[armour];
+    img.setAttribute('data-id', armour);
+    armour_icon.innerHTML = "";
+    armour_icon.appendChild(img);
+
+    const primary = params['primary'];
+    const primary_icon = document.getElementById('primary-slot');
+    const img2 = document.createElement('img');
+    img2.src = imageIndex[primary];
+    img2.setAttribute('data-id', primary);
+    primary_icon.innerHTML = "";
+    primary_icon.appendChild(img2)
+
+    const secondary = params['secondary'];
+    const secondary_icon = document.getElementById('secondary-slot');
+    const img3 = document.createElement('img');
+    img3.src = imageIndex[secondary];
+    img3.setAttribute('data-id', secondary);
+    secondary_icon.innerHTML = "";
+    secondary_icon.appendChild(img3)
+    
+    const thr = params['throwable'];
+    const thr_icon = document.getElementById('throwable-slot');
+    const img4 = document.createElement('img');
+    img4.src = imageIndex[thr];
+    img4.setAttribute('data-id', thr);
+    thr_icon.innerHTML = "";
+    thr_icon.appendChild(img4)
+
+    processAtype(params['atype']);
     // itemlist 처리
     displayItems();
 }
@@ -197,7 +273,35 @@ function updateURLwithFactions() {
     setURLFromParams(params);
     processFactions(temp);
 }
+// atype 상태를 URL에 업데이트
+function updateURLwithAtypes() {
+    const params = setParamsFromURL();
+    params['atype'] = document.querySelector('input[name="atype"]:checked').value;
+    setURLFromParams(params);
+    processAtype(params['atype']);
+}
+// 무장 상태를 URL에 업데이트
+function updateURLwitharmour(index, id) {
+    const params = setParamsFromURL();
+    // params['armour'] = document.query
+    console.log(index);
+    console.log(id);
+    if(index == 6) params['armour'] = id;
+    if(index == 7) params['primary'] = id;
+    if(index == 8) params['secondary'] = id;
+    if(index == 9) params['throwable'] = id;
+    setURLFromParams(params);
+}
+
 // ==============================================================================================
+function processAtype(index) {
+    var mapping = ['assets/arm_lev/light.png', 'assets/arm_lev/mid.png', 'assets/arm_lev/heavy.png']
+    const armour_icon = document.getElementById('armour-type');
+    const img = document.createElement('img');
+    img.src = mapping[index];
+    armour_icon.innerHTML = "";
+    armour_icon.appendChild(img);
+}
 function processFactions(factionsState) {
     const bugImg = document.getElementById('bug');
     const botImg = document.getElementById('bot');
@@ -246,35 +350,48 @@ function setParamsFromURL() {
     const pairs = queryString.split("&");
     let t = "";
     let d = "";
+    let v = "";
     
     pairs.forEach(function(pair) {
         const [key, value] = pair.split("=");
         if (key === "t") t = decodeURIComponent(value);
         else if (key === "d") d = decodeURIComponent(value);
+        else if (key === "v") v = decodeURIComponent(value);
     });
-    return decodeParams(t, d);
+    return decodeParams(t, d, v);
 }
 // encoded parameter로부터 params 생성 후 반환하기
-function decodeParams(t, d) {
+function decodeParams(t, d, v) {
     const params = {
         "t": "",
         "f": 0,
         "h": 0,
+        "atype": 0,
+        "armour": 0,
+        "primary": 0,
+        "secondary": 0,
+        "throwable": 0,
         3  : 0,
         2  : 0,
         1  : 0,
         0  : 0
     };
     const decodedvalue = base64ToDecimal(d);
+    const decodedvalue2 = base64ToDecimal(v);
 
     params["t"] = t.replaceAll("_", " ");
-    params["f"] = Math.trunc(decodedvalue / 1e9);
-    params["h"] = Math.trunc((decodedvalue / 1e8) % 10);
-    params[3] = Math.trunc((decodedvalue / 1e6) % 100);
-    params[2] = Math.trunc((decodedvalue / 1e4) % 100);
-    params[1] = Math.trunc((decodedvalue / 1e2) % 100);
-    params[0] = Math.trunc(decodedvalue % 100);
+    params["f"] = Math.trunc(decodedvalue / 1e15);
+    params["h"] = Math.trunc((decodedvalue / 1e12) % 1000);
+    params[3] = Math.trunc((decodedvalue / 1e9) % 1000);
+    params[2] = Math.trunc((decodedvalue / 1e6) % 1000);
+    params[1] = Math.trunc((decodedvalue / 1e3) % 1000);
+    params[0] = Math.trunc(decodedvalue % 1000);
 
+    params["atype"] = Math.trunc((decodedvalue2 / 1e12) % 1000);
+    params["armour"] = Math.trunc((decodedvalue2 / 1e9) % 1000);
+    params["primary"] = Math.trunc((decodedvalue2 / 1e6) % 1000);
+    params["secondary"] = Math.trunc((decodedvalue2 / 1e3) % 1000);
+    params["throwable"] = Math.trunc(decodedvalue2 % 1000);
     return params;
 }
 // parameter로부터 URL 설정하기
@@ -284,7 +401,11 @@ function setURLFromParams(params) {
     const d = getD(params);
     const encodingD = decimalToBase64(d);
 
+    const v = getV(params);
+    const encodingV = decimalToBase64(v)
+
     queryString.push(`d=${encodingD}`);
+    queryString.push(`v=${encodingV}`);
     queryString.push(`t=${params['t'].replaceAll(" ", "_")}`);
 
     const newURL = `${window.location.origin}${window.location.pathname}?${queryString.join("&")}`;
@@ -293,12 +414,20 @@ function setURLFromParams(params) {
 }
 // assembles "d"
 function getD(params) {
-    return params["f"] * 1e9 +
-        params["h"] * 1e8 +
-        params[3] * 1e6 +
-        params[2] * 1e4 +
-        params[1] * 1e2 +
+    return params["f"] * 1e15 +
+        params["h"] * 1e12 +
+        params[3] * 1e9 +
+        params[2] * 1e6 +
+        params[1] * 1e3 +
         params[0];
+}
+
+function getV(params) {
+    return params["atype"] * 1e12 +
+        params["armour"] * 1e9 +
+        params["primary"] * 1e6 +
+        params["secondary"] * 1e3 +
+        params["throwable"];
 }
 // ==============================================================================================
 // 64-bit encoding
@@ -337,8 +466,8 @@ function showCopySuccess(id) {
     // 버튼 텍스트 변경
     let originalText = ""
     if(id=="download_button_2") originalText = "다운로드(투명배경)";
-    else if(id=="download_button_1") originalText = "다운로드";
-    else originalText = "링크 복사";
+    else if(id=="download_button_1") originalText = "이미지 가져오기";
+    else originalText = "링크 가져오기";
     
     copyButton.textContent = '클립보드에 복사 완료!';
     
@@ -383,29 +512,4 @@ function down(background, buttonId) {
             window.saveAs(blob, 'download.png');
             document.getElementById('targetImg').removeAttribute("class");
         });
-}
-// ==============================================================================================
-// 랜덤 stratagem 선택 기능
-function randomSelect() {
-    const indices = new Set();
-    const params = {
-        "t": "",
-        0  : 0,
-        1  : 0,
-        2  : 0,
-        3  : 0,
-        "h": 0
-    };
-    
-    while (indices.size < 4) {
-        const randomNum = Math.floor(Math.random() * (imageIndex.length - 1)) + 1;
-        indices.add(randomNum);
-    }
-    var i = 0;
-    for(const index of indices) {
-        params[i++] = index;
-    }
-    
-    setURLFromParams(params);
-    initializeFromURL();
 }
