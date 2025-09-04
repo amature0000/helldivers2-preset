@@ -68,7 +68,8 @@ const imageMap = [
                 { src: "assets/icons/Control Group/Laser Sentry.svg", caption: "레이저" },
             ],
             [
-                { src: "assets/icons/Bridge/Grenadier Battlement.svg", caption: "유탄방벽" }
+                { src: "assets/icons/Bridge/Grenadier Battlement.svg", caption: "유탄방벽" },
+                { src: "assets/icons/Dust Devils/Solo Silo.svg", caption: "사일로" },
             ]
         ]
     },
@@ -94,7 +95,7 @@ const imageMap = [
                 { src: "assets/icons/Engineering Bay/Laser Cannon.svg", caption: "레이저캐넌" },
             ],
             [
-                { src: "assets/icons/Patriotic Administration Center/Anti-Materiel Rifle.svg", caption: "대물저격" },
+                { src: "assets/icons/Dust Devils/Expendable Napalm.svg", caption: "네이팜" },
                 { src: "assets/icons/Patriotic Administration Center/Expendable Anti-Tank.svg", caption: "일회용" },
                 { src: "assets/icons/Patriotic Administration Center/Commando.svg", caption: "코만도" },
                 { src: "assets/icons/Engineering Bay/Quasar Cannon.svg", caption: "퀘이사" },
@@ -108,7 +109,11 @@ const imageMap = [
             [
                 { src: "assets/icons/Patriotic Administration Center/Railgun.svg", caption: "레일건" },
                 { src: "assets/icons/Control Group/Epoch.svg", caption: "에포크" },
-                { src: "assets/icons/Force of Law/GL-52 De-Escalator.svg", caption: "아크유탄" }
+                { src: "assets/icons/Force of Law/GL-52 De-Escalator.svg", caption: "아크유탄" },
+                { src: "assets/icons/Patriotic Administration Center/Anti-Materiel Rifle.svg", caption: "대물저격" },
+            ],
+            [
+                { src: "assets/icons/Dust Devils/Speargun.svg", caption: "작살총" },
             ]
         ]
     },
@@ -176,6 +181,8 @@ const imageMap = [
             [
                 { src: "assets/arm_passive/Siege-Ready_Armor_Passive_Icon.webp", caption: "장전갑" },
                 { src: "assets/arm_passive/Unflinching_Armor_Passive_Icon.webp", caption: "결연함" },
+                { src: "assets/arm_passive/halo.svg", caption: "헤일로" },
+                { src: "assets/arm_passive/desert.svg", caption: "사막갑" },
             ]
         ]
     },
@@ -456,4 +463,9 @@ const imageIndex = [
     "assets/thr/G-6_Frag_Throwable_Render.webp",
     "assets/thr/K-2_Throwing_Knife_Throwable_Render.webp",
     "assets/thr/TED-63_Dynamite_Throwable_Render.webp",
+    "assets/arm_passive/desert.svg",
+    "assets/arm_passive/halo.svg",
+    "assets/icons/Dust Devils/Expendable Napalm.svg",
+    "assets/icons/Dust Devils/Solo Silo.svg",
+    "assets/icons/Dust Devils/Speargun.svg",
 ]
