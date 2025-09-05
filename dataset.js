@@ -204,6 +204,10 @@ const imageMap = [
                 { src: "assets/primary/AR-32_Pacifier_Primary_Render.webp", caption: "퍼시파이어" },
                 { src: "assets/primary/AR-61_Tenderizer_Primary_Render.webp", caption: "텐더라이저" },
                 { src: "assets/primary/BR-14_Adjudicator_Primary_Render.webp", caption: "어드주" },
+                { src: "assets/primary/MA5C_Assault_Rifle_Primary_Render.webp", caption: "MA5C" },
+            ],
+            [
+                { src: "assets/primary/AR-2_Coyote_Primary_Render.webp", caption: "코요테" },
             ],
             [
                 { src: "assets/primary/StA-11_SMG_Primary_Render.webp", caption: "StA-11" },
@@ -213,6 +217,7 @@ const imageMap = [
             ],
             [
                 { src: "assets/primary/SMG-37_Defender_Primary_Render.webp", caption: "디펜더" },
+                { src: "assets/primary/M7S_SMG_Primary_Render.png", caption: "M7S" },
             ],
             [
                 { src: "assets/primary/R-2124_Constitution_Primary_Render.webp", caption: "컨스티튜션" },
@@ -245,6 +250,9 @@ const imageMap = [
                 { src: "assets/primary/SG-8P_Punisher_Plasma_Primary_Render.webp", caption: "플퍼" },
                 { src: "assets/primary/SG-8S_Slugger_Primary_Render.webp", caption: "슬러거" },
                 { src: "assets/primary/SG-8_Punisher_Primary_Render.webp", caption: "퍼니셔" },
+            ],
+            [
+                { src: "assets/primary/M90A_Shotgun_Primary_Render.webp", caption: "M90A" },
             ]
         ]
     },
@@ -273,6 +281,7 @@ const imageMap = [
             [
                 { src: "assets/secondary/PLAS-15_Loyalist_Secondary_Render.webp", caption: "로얄리스트" },
                 { src: "assets/secondary/SG-22_Bushwhacker_Secondary_Render.webp", caption: "부시웨커" },
+                { src: "assets/secondary/M6C_SOCOM_Pistol_Secondary_Render.webp", caption: "SOCOM" },
 
             ]
         ]
@@ -468,4 +477,9 @@ const imageIndex = [
     "assets/icons/Dust Devils/Expendable Napalm.svg",
     "assets/icons/Dust Devils/Solo Silo.svg",
     "assets/icons/Dust Devils/Speargun.svg",
+    "assets/secondary/M6C_SOCOM_Pistol_Secondary_Render.webp",
+    "assets/primary/M90A_Shotgun_Primary_Render.webp",
+    "assets/primary/M7S_SMG_Primary_Render.png",
+    "assets/primary/AR-2_Coyote_Primary_Render.webp",
+    "assets/primary/MA5C_Assault_Rifle_Primary_Render.webp",
 ]
