@@ -11,3 +11,6 @@ This project is published on GitHub Pages.
 - Save loadout presets
 
 This project is dedicated to Korean community users. You can modify it to support your own language for liberty and democracy.
+
+## currently deprecated
+I do not maintain this project currently.
